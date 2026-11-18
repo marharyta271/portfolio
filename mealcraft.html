@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MealCraft — case study · Marharyta Dolha</title>
+<meta name="description" content="MealCraft: a retrospective redesign of a meal planning app that knows what's already in your fridge.">
+<meta property="og:title" content="MealCraft — case study · Marharyta Dolha">
+<meta property="og:description" content="MealCraft: a retrospective redesign of a meal planning app that knows what's already in your fridge.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&amp;family=JetBrains+Mono:wght@400;500&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400..800;1,8..60,400..800&amp;family=Instrument+Serif:ital@0;1&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.mc-carousel::-webkit-scrollbar{display:none}
+</style>
+<style>
+/* Stopgap for smaller screens: desktop layout is unchanged. */
+img, video { max-width: 100%; }
+@media (max-width: 1200px) {
+  [style*="width: 1150px"], [style*="width: 1061px"], [style*="width: 823px"], [style*="width: 686px"] { width: auto !important; height: auto !important; }
+  [style*="height: 83px"] { height: auto !important; }
+}
+@media (max-width: 860px) {
+  [style*="grid-template-columns"] { grid-template-columns: minmax(0, 1fr) !important; }
+  [style*="grid-column"] { grid-column: auto !important; grid-row: auto !important; }
+  [data-panel] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  [style*="height: 638px"] { height: auto !important; }
+  [style*="padding-top: 22px"] { padding-top: 0 !important; }
+}
+</style>
+</head>
+<body>
+<div id="top" style="font-family: Inter, system-ui, -apple-system, 'Segoe UI', sans-serif; font-optical-sizing: auto; color: #111111; -webkit-font-smoothing: antialiased; background-color: #FFFFFF">
+<div style="max-width: 1280px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 64px); box-sizing: border-box;">
+
+<header style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 32px; padding: 20px 0;">
+<a href="index.html" style="display: inline-flex; align-items: center; min-height: 44px; font-family: 'Source Serif 4', Georgia, serif; font-size: 20px; font-weight: 400; letter-spacing: -0.02em; color: #111111; text-decoration: none">Marharyta Dolha</a>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 0 36px;">
+<nav aria-label="Main" style="display: flex; flex-wrap: wrap; gap: 0 28px; font-size: 15px; font-weight: 500;">
+<a href="index.html#projects" style="display: inline-flex; align-items: center; min-height: 44px; color: #111111; text-decoration: none;">Projects</a>
+<a href="index.html#about-me" style="display: inline-flex; align-items: center; min-height: 44px; color: #111111; text-decoration: none;">About</a>
+<a href="#contact" style="display: inline-flex; align-items: center; min-height: 44px; color: #111111; text-decoration: none;">Contact</a>
+</nav>
+<p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #5E5E5E; font-variant-numeric: tabular-nums;">IE · <span data-cork-time></span></p>
+</div>
+</header>
+
+<main>
+
+<section aria-labelledby="cs-title" style="padding: clamp(40px, 6vw, 88px) 0 clamp(40px, 5vw, 64px);">
+<a href="index.html#projects" style="display: inline-flex; align-items: center; min-height: 44px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #111111; text-decoration: none;">← All projects</a>
+<p style="margin: 24px 0 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">02 · Retrospective redesign · Mobile · 2026</p>
+<h1 id="cs-title" style="margin: 16px 0 0; font-family: 'Source Serif 4', Georgia, serif; font-weight: 700; font-size: clamp(72px, 10vw, 148px); line-height: 0.9; letter-spacing: -0.04em;">MealCraft</h1>
+<p style="margin: 28px 0 0; max-width: 840px; font-size: clamp(24px, 2.6vw, 34px); line-height: 1.2; font-weight: 500; letter-spacing: -0.02em;">A retrospective redesign of a meal planning app.</p>
+<p style="margin: 14px 0 0; max-width: 840px; font-size: 21px; line-height: 1.5; color: #2A2A2A;">MealCraft is an AI-driven meal planning app that knows your allergies, your preferences and what's already in your fridge.</p>
+</section>
+
+<img src="assets/mealcraft-cover.jpg" alt="MealCraft: redesigned app screens on a green background, with the home screen in the middle" style="display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: #9DB8A2;">
+
+<section aria-label="Project summary" style="padding: clamp(48px, 6vw, 80px) 0 0;">
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 24px; border-top: 1px solid #111111;">
+<div style="display: flex; flex-direction: column; gap: 8px; padding: 20px 0 24px; border-bottom: 1px solid #D6D2CA;">
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">Type</span>
+<span style="font-size: 18px; line-height: 1.45;">Retrospective redesign, mobile</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px; padding: 20px 0 24px; border-bottom: 1px solid #D6D2CA;">
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">Role</span>
+<span style="font-size: 18px; line-height: 1.45;">UX/UI designer, solo project</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px; padding: 20px 0 24px; border-bottom: 1px solid #D6D2CA;">
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">Timeline</span>
+<span style="font-size: 18px; line-height: 1.45;">Mar–Oct 2026</span>
+</div>
+<div style="grid-column: span 2; display: flex; flex-direction: column; gap: 8px; padding: 20px 0 24px;">
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">Methods</span>
+<span style="font-size: 18px; line-height: 1.45;">Review of the original app, competitor review (3 apps), redesign in Figma, heuristic evaluation (Nielsen's 10)</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px; padding: 20px 0 24px;">
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">Tools</span>
+<span style="font-size: 18px; line-height: 1.45;">Figma, FigJam, Claude, Claude Design</span>
+</div>
+</div>
+
+<p style="margin: clamp(40px, 5vw, 64px) 0 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">What I did</p>
+<ol style="list-style: none; margin: 16px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 24px; row-gap: 24px;">
+<li style="display: flex; flex-direction: column; gap: 12px; padding: 24px 24px 26px; background: #FCFCFB; border-radius: 24px; box-shadow: 0 12px 32px rgba(17, 17, 17, 0.07);"><span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 48px; line-height: 0.9; color: #237D02;">01</span><span style="font-size: 17px; line-height: 1.5; color: #2A2A2A;">Listed what bothered me in the original app: onboarding, adding groceries and settings</span></li>
+<li style="display: flex; flex-direction: column; gap: 12px; padding: 24px 24px 26px; background: #FCFCFB; border-radius: 24px; box-shadow: 0 12px 32px rgba(17, 17, 17, 0.07);"><span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 48px; line-height: 0.9; color: #237D02;">02</span><span style="font-size: 17px; line-height: 1.5; color: #2A2A2A;">Tried three competitor apps popular in Ukraine: Dine4Fit, FatSecret and Yazio</span></li>
+<li style="display: flex; flex-direction: column; gap: 12px; padding: 24px 24px 26px; background: #FCFCFB; border-radius: 24px; box-shadow: 0 12px 32px rgba(17, 17, 17, 0.07);"><span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 48px; line-height: 0.9; color: #237D02;">03</span><span style="font-size: 17px; line-height: 1.5; color: #2A2A2A;">Redesigned the app from scratch, this time for mobile</span></li>
+<li style="display: flex; flex-direction: column; gap: 12px; padding: 24px 24px 26px; background: #FCFCFB; border-radius: 24px; box-shadow: 0 12px 32px rgba(17, 17, 17, 0.07);"><span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 48px; line-height: 0.9; color: #237D02;">04</span><span style="font-size: 17px; line-height: 1.5; color: #2A2A2A;">Checked the original app against Nielsen's 10 usability heuristics</span></li>
+</ol>
+</section>
+
+<section id="context" aria-labelledby="h-context" style="padding: clamp(80px, 9vw, 128px) 0 0;">
+<div style="display: flex; flex-direction: column; gap: 14px; padding-top: 20px; border-top: 1px solid #111111;">
+<p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">(01)</p>
+<h2 id="h-context" style="margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-weight: 700; font-size: clamp(40px, 4.4vw, 60px); line-height: 1; letter-spacing: -0.03em;">Context</h2>
+</div>
+<p style="max-width: 1000px; margin: 36px 0 0; font-size: 19px; line-height: 1.6; color: #2A2A2A;">The idea came from my own experience. I noticed that in my household we were overspending on groceries, and about a fifth of them ended up in the bin by the end of the week. At first I just kept a meal plan in my notes. It helped me stick to my macros, and we started spending around 20% less on groceries.</p>
+
+<figure style="margin: 48px 0 0;">
+<img src="assets/plan-compare-v3.png" alt="Two cards side by side. Groceries, marked No plan: 8 items that make 0 meals, like truffle sea salt and a third jar of pesto. Meal plan, marked Planned: 4 items that make breakfast, eggs with chicken toast." style="display: block; width: 100%; height: auto; filter: drop-shadow(0 12px 32px rgba(17, 17, 17, 0.07));">
+<figcaption style="margin-top: 12px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">Groceries with no plan vs. a meal plan</figcaption>
+</figure>
+
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; margin-top: 48px;">
+<div style="display: flex; flex-direction: column; gap: 14px; padding: 28px 28px 30px; border-radius: 24px">
+<span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 72px; line-height: 0.9; color: #237D02;">1/5</span>
+<span style="font-size: 17px; line-height: 1.5; color: #2A2A2A;">of our groceries ended up in the bin by the end of the week</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px; padding: 28px 28px 30px; border-radius: 24px">
+<span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 72px; line-height: 0.9; color: #237D02;">~20%</span>
+<span style="font-size: 17px; line-height: 1.5; color: #2A2A2A;">less spent on groceries once I kept a meal plan in my notes</span>
+</div>
+</div>
+
+<div style="margin-top: 56px; padding: clamp(32px, 4vw, 52px) clamp(28px, 4vw, 52px); background: #FCFCFB; border-radius: 24px; box-shadow: 0 12px 32px rgba(17, 17, 17, 0.07);">
+<p style="margin: 0; font-size: 17px; line-height: 1.4; color: #6F6F66;">Problem statement</p>
+<p style="margin: 18px 0 0; max-width: 1000px; font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; font-size: clamp(38px, 4.2vw, 58px); line-height: 1.06; letter-spacing: -0.01em; color: #237D02;">There's no one place that connects what you have, what you like, and what you should cook.</p>
+<p style="margin: 32px 0 0; padding-top: 28px; border-top: 1px solid #E6E3DC; max-width: 820px; font-size: clamp(19px, 1.8vw, 22px); line-height: 1.5; color: #4A4A45;">Planning meals is a mess for a lot of people, me included. You forget what's in your fridge, you buy stuff you already have, you save recipes everywhere but never actually use them, and a lot of the suggestions you find online don't match your diet or what you've got at home.</p>
+</div>
+</section>
+
+<section id="first-version" aria-labelledby="h-first" style="padding: clamp(80px, 9vw, 128px) 0 0;">
+<div style="display: flex; flex-direction: column; gap: 14px; padding-top: 20px; border-top: 1px solid #111111;">
+<p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">(02)</p>
+<h2 id="h-first" style="margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-weight: 700; font-size: clamp(40px, 4.4vw, 60px); line-height: 1; letter-spacing: -0.03em;">The first version</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 32px; align-items: flex-start; margin-top: 36px; height: 83px">
+<p style="grid-column: span 7; margin: 0; font-size: 19px; line-height: 1.6; color: #2A2A2A; width: 1150px; height: 238px">It was the first app I'd ever worked on, so I had no idea where to start, and I have to warn you: it was a total mess. I began by thinking about which features I wanted to see and tried to draw the main idea of the app's flow.</p>
+
+</div>
+
+<figure style="width: 100%; margin: 0">
+<div style="padding: 28px 0; border-radius: 24px">
+<img src="assets/sketch-horizontal-v2.png" alt="Hand-drawn sketch titled Main idea, with four steps in a row: 1 Plan, 2 Fridge, 3 Shop, 4 Track" style="display: block; width: 100%; height: auto;">
+</div>
+<figcaption style="margin-top: 12px; text-align: center; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">The main idea: plan, fridge, shop, track</figcaption>
+</figure><p style="max-width: 780px; margin: 56px 0 0; font-size: 19px; line-height: 1.6; color: #2A2A2A;">Next, I made a list of features:</p>
+<ul style="list-style: none; margin: 24px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 24px; row-gap: 24px;">
+<li style="display: flex; flex-direction: column; gap: 12px; padding: 24px 24px 28px; background: #FCFCFB; border-radius: 24px; box-shadow: 0 12px 32px rgba(17, 17, 17, 0.07);"><span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 48px; line-height: 0.9; color: #237D02;">01</span><h3 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">Receipt import</h3><p style="margin: 0; font-size: 17px; line-height: 1.55; color: #2A2A2A;">So the app “knows” what you already have in the fridge.</p></li>
+<li style="display: flex; flex-direction: column; gap: 12px; padding: 24px 24px 28px; background: #FCFCFB; border-radius: 24px; box-shadow: 0 12px 32px rgba(17, 17, 17, 0.07);"><span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 48px; line-height: 0.9; color: #237D02;">02</span><h3 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">Macros &amp; allergies</h3><p style="margin: 0; font-size: 17px; line-height: 1.55; color: #2A2A2A;">Macro targets, hard allergy blocks and taste preferences shape every recipe suggestion.</p></li>
+<li style="display: flex; flex-direction: column; gap: 12px; padding: 24px 24px 28px; background: #FCFCFB; border-radius: 24px; box-shadow: 0 12px 32px rgba(17, 17, 17, 0.07);"><span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 48px; line-height: 0.9; color: #237D02;">03</span><h3 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">AI recipes</h3><p style="margin: 0; font-size: 17px; line-height: 1.55; color: #2A2A2A;">Recipes are written for you: built around what you have, sized to your macros, safe for your allergies.</p></li>
+<li style="display: flex; flex-direction: column; gap: 12px; padding: 24px 24px 28px; background: #FCFCFB; border-radius: 24px; box-shadow: 0 12px 32px rgba(17, 17, 17, 0.07);"><span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 48px; line-height: 0.9; color: #237D02;">04</span><h3 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">Shopping list</h3><p style="margin: 0; font-size: 17px; line-height: 1.55; color: #2A2A2A;">A built-in shopping list that fills itself automatically, based on chosen recipes.</p></li>
+</ul>
+
+<div style="max-width: 780px; display: flex; flex-direction: column; gap: 20px; margin-top: 48px; font-size: 19px; line-height: 1.6; color: #2A2A2A;">
+<p style="margin: 0;">And I simply handed it to my partner, who's a developer, to build the app for me. I thought that was enough information for him. <strong style="font-weight: 600; color: #111111;">Spoiler: it wasn't.</strong></p>
+<p style="margin: 0;">When he finished, it hit me that the app was very difficult to navigate and not intuitive at all. Someone seeing it for the first time wouldn't even be able to tell it was a meal planning app.</p>
+</div>
+</section>
+
+<section id="problem" aria-labelledby="h-problem" style="padding: clamp(80px, 9vw, 128px) 0 0;">
+<div style="display: flex; flex-direction: column; gap: 14px; padding-top: 20px; border-top: 1px solid #111111;">
+<p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">(03)</p>
+<h2 id="h-problem" style="margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-weight: 700; font-size: clamp(40px, 4.4vw, 60px); line-height: 1; letter-spacing: -0.03em;">The problem</h2>
+</div>
+<div style="max-width: 780px; display: flex; flex-direction: column; gap: 20px; margin-top: 36px; font-size: 19px; line-height: 1.6; color: #2A2A2A;">
+<p style="margin: 0;">So I decided to redesign the app from scratch, and this time for mobile. I already knew what the app should do. In the current version, three things bothered me most:</p>
+
+</div>
+
+<figure style="margin: 48px 0 0; padding: clamp(32px, 4vw, 52px) clamp(28px, 4vw, 52px) clamp(20px, 2vw, 28px); background: #FCFCFB; border-radius: 24px; box-shadow: 0 12px 32px rgba(17, 17, 17, 0.07);">
+<p style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; font-size: clamp(38px, 4.2vw, 58px); line-height: 1.06; letter-spacing: -0.01em; color: #237D02;">Right idea. Wrong execution.</p>
+<img src="assets/problems-v2.png" alt="Three illustrations: a person at the foot of a very tall ladder (onboarding, too many steps), a person next to a crowded shelf (adding groceries, hard to add, hard to scan) and a person at a signpost pointing in many directions (settings, too many choices)" style="display: block; width: 100%; height: auto; margin-top: 16px;">
+</figure>
+
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 24px; row-gap: 24px; margin-top: 24px;">
+<div style="display: flex; flex-direction: column; gap: 12px; padding: 26px 26px 28px; background: #FCFCFB; border-radius: 24px; box-shadow: 0 12px 32px rgba(17, 17, 17, 0.07);">
+<span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 48px; line-height: 0.9; color: #237D02;">01</span>
+<h3 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">Onboarding</h3>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #2A2A2A;">Overwhelming for a first-time user.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px; padding: 26px 26px 28px; background: #FCFCFB; border-radius: 24px; box-shadow: 0 12px 32px rgba(17, 17, 17, 0.07);">
+<span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 48px; line-height: 0.9; color: #237D02;">02</span>
+<h3 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">Adding groceries</h3>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #2A2A2A;">Not intuitive. Categorising didn't work well, and it was hard for the eye to catch the information you need.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px; padding: 26px 26px 28px; background: #FCFCFB; border-radius: 24px; box-shadow: 0 12px 32px rgba(17, 17, 17, 0.07);">
+<span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 48px; line-height: 0.9; color: #237D02;">03</span>
+<h3 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">Settings</h3>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #2A2A2A;">Way too broad, with too many options to customise.</p>
+</div>
+</div>
+
+<div style="margin-top: clamp(64px, 7vw, 96px); padding-top: 20px; border-top: 1px solid #111111;">
+<h3 style="margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-weight: 700; font-size: clamp(30px, 3vw, 42px); line-height: 1.05; letter-spacing: -0.025em;">How it looked in the original app</h3>
+<figure style="margin: 40px 0 0;"><video preload="metadata" src="assets/old-onboarding-15x.mp4" poster="assets/old-onboarding-poster.jpg" autoplay="" muted="" loop="" playsinline="" controls="" aria-label="Screen recording of onboarding in the original MealCraft app, at 1.5x speed: the six-step checklist on the dashboard, household setup with allergies and preferences, then nutrition goals" style="display: block; width: 100%; height: auto; aspect-ratio: 2304 / 1356; border: 1px solid #D6D2CA; box-sizing: border-box; background: #FFFFFF;"></video><figcaption style="margin-top: 12px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">Onboarding · screen recording (1.5x speed)</figcaption></figure>
+<figure style="margin: 40px 0 0;"><video preload="metadata" src="assets/old-groceries-15x.mp4" poster="assets/old-groceries-poster.jpg" autoplay="" muted="" loop="" playsinline="" controls="" aria-label="Screen recording of adding groceries in the original MealCraft app, at 1.5x speed: adding items one at a time in a pop-up, then seeing them in a table and a calendar" style="display: block; width: 100%; height: auto; aspect-ratio: 2304 / 1356; border: 1px solid #D6D2CA; box-sizing: border-box; background: #FFFFFF;"></video><figcaption style="margin-top: 12px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">Adding groceries · screen recording (1.5x speed)</figcaption></figure>
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; margin-top: 56px;">
+<p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">Settings · swipe to see all 5 screens →</p>
+<div style="display: flex; align-items: center; gap: 12px;">
+<span data-car-counter="a" style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; color: #5E5E5E; font-variant-numeric: tabular-nums;">1 / 5</span>
+<button type="button" aria-label="Previous screenshot" data-car-prev="a" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; border: 1px solid #111111; border-radius: 50%; background: #FCFCFB; color: #111111; cursor: pointer; opacity: 0.35;"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M11 4 6 9l5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+<button type="button" aria-label="Next screenshot" data-car-next="a" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; border: 1px solid #111111; border-radius: 50%; background: #FCFCFB; color: #111111; cursor: pointer; opacity: 1;"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M7 4l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+</div>
+</div>
+<div class="mc-carousel" role="group" aria-label="Screenshots of the original settings, 5 slides" data-car="a" tabindex="0" style="display: flex; gap: 24px; margin-top: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; overscroll-behavior-x: contain;">
+<figure style="flex: 0 0 88%; margin: 0; scroll-snap-align: start;"><img src="assets/set-general.jpg" alt="Original Settings, General tab: language, country, currency and sign out" style="display: block; width: 100%; height: auto; aspect-ratio: 2048 / 922; border: 1px solid #D6D2CA; box-sizing: border-box;"><figcaption style="margin-top: 12px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">1 · Settings · general</figcaption></figure>
+<figure style="flex: 0 0 88%; margin: 0; scroll-snap-align: start;"><img src="assets/set-household.jpg" alt="Original Settings, Household tab: a member card with dietary restrictions, allergies and dislikes always open" style="display: block; width: 100%; height: auto; aspect-ratio: 2048 / 922; border: 1px solid #D6D2CA; box-sizing: border-box;"><figcaption style="margin-top: 12px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">2 · Settings · household</figcaption></figure>
+<figure style="flex: 0 0 88%; margin: 0; scroll-snap-align: start;"><img src="assets/set-household-2.jpg" alt="Original Settings, Household tab scrolled down: diet type, nutritional goals and meal preferences checkboxes" style="display: block; width: 100%; height: auto; aspect-ratio: 2048 / 922; border: 1px solid #D6D2CA; box-sizing: border-box;"><figcaption style="margin-top: 12px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">3 · Settings · household, scrolled down</figcaption></figure>
+<figure style="flex: 0 0 88%; margin: 0; scroll-snap-align: start;"><img src="assets/set-appearance.jpg" alt="Original Settings, Appearance tab: minimal view, theme and interface customisation" style="display: block; width: 100%; height: auto; aspect-ratio: 2048 / 922; border: 1px solid #D6D2CA; box-sizing: border-box;"><figcaption style="margin-top: 12px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">4 · Settings · appearance</figcaption></figure>
+<figure style="flex: 0 0 88%; margin: 0; scroll-snap-align: start;"><img src="assets/set-appearance-2.jpg" alt="Original Settings, Appearance tab scrolled down: options to show or hide sidebar sections and dashboard content" style="display: block; width: 100%; height: auto; aspect-ratio: 2048 / 922; border: 1px solid #D6D2CA; box-sizing: border-box;"><figcaption style="margin-top: 12px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">5 · Settings · appearance, scrolled down</figcaption></figure>
+</div>
+<div aria-hidden="true" style="display: flex; justify-content: center; gap: 6px; margin-top: 20px;">
+<span data-car-dot="a" style="display: block; width: 24px; height: 8px; border-radius: 4px; background: #111111; transition: width 0.2s ease;"></span><span data-car-dot="a" style="display: block; width: 8px; height: 8px; border-radius: 4px; background: #C9C5BC; transition: width 0.2s ease;"></span><span data-car-dot="a" style="display: block; width: 8px; height: 8px; border-radius: 4px; background: #C9C5BC; transition: width 0.2s ease;"></span><span data-car-dot="a" style="display: block; width: 8px; height: 8px; border-radius: 4px; background: #C9C5BC; transition: width 0.2s ease;"></span><span data-car-dot="a" style="display: block; width: 8px; height: 8px; border-radius: 4px; background: #C9C5BC; transition: width 0.2s ease;"></span>
+</div>
+</div>
+</section>
+
+<section id="competitors" aria-labelledby="h-competitors" style="padding: clamp(80px, 9vw, 128px) 0 0;">
+<div style="display: flex; flex-direction: column; gap: 14px; padding-top: 20px; border-top: 1px solid #111111;">
+<p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">(04)</p>
+<h2 id="h-competitors" style="margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-weight: 700; font-size: clamp(40px, 4.4vw, 60px); line-height: 1; letter-spacing: -0.03em;">Competitors</h2>
+</div>
+<div style="max-width: 780px; display: flex; flex-direction: column; gap: 20px; margin-top: 36px; font-size: 19px; line-height: 1.6; color: #2A2A2A;">
+<p style="margin: 0;">Before drawing anything, I wanted to see what's already out there. I used to work as a marketing specialist, and looking at competitors first felt like a good idea.</p>
+<p style="margin: 0;">I picked three apps that are popular in Ukraine: Dine4Fit, FatSecret and Yazio. I didn't really score them. I just downloaded each one on my phone and checked what worked well and what didn't.</p>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 40px; row-gap: 48px; align-items: start; margin-top: 48px;">
+
+<div role="group" aria-label="Dine4Fit screenshots, 3 screens" style="display: flex; flex-direction: column; gap: 16px;">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+<h3 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">Dine4Fit</h3>
+<div style="display: flex; align-items: center; gap: 8px;">
+<span data-comp-counter="d4f" style="margin-right: 4px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; color: #5E5E5E; font-variant-numeric: tabular-nums;">1 / 3</span>
+<button type="button" aria-label="Previous Dine4Fit screen" data-comp-prev="d4f" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; border: 1px solid #111111; border-radius: 50%; background: #FCFCFB; color: #111111; cursor: pointer; opacity: 0.35;"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M11 4 6 9l5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+<button type="button" aria-label="Next Dine4Fit screen" data-comp-next="d4f" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; border: 1px solid #111111; border-radius: 50%; background: #FCFCFB; color: #111111; cursor: pointer; opacity: 1;"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M7 4l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+</div>
+</div>
+<img data-comp="d4f" data-i="0" src="assets/d4f-goal.jpg" alt="Dine4Fit onboarding screen asking What is your goal?, with three options" style="display: block; width: 100%; height: auto; aspect-ratio: 640 / 1314; object-fit: cover; border-radius: 20px;">
+<img data-comp="d4f" data-i="1" src="assets/d4f-create-meal.jpg" alt="Dine4Fit Create My meal screen with two ingredients added" style="display: none; width: 100%; height: auto; aspect-ratio: 640 / 1314; object-fit: cover; border-radius: 20px;">
+<img data-comp="d4f" data-i="2" src="assets/d4f-recipes.jpg" alt="Dine4Fit recipe list with a Find and filter recipes search bar" style="display: none; width: 100%; height: auto; aspect-ratio: 640 / 1314; object-fit: cover; border-radius: 20px;">
+<div aria-live="polite">
+<div data-comp="d4f" data-i="0" style="display: block;"><p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">“What is your goal?”</p><p style="margin: 6px 0 0; font-size: 16px; line-height: 1.45; color: #2A2A2A;">One question per screen, easy to start.</p></div>
+<div data-comp="d4f" data-i="1" style="display: none;"><p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">Create my meal</p><p style="margin: 6px 0 0; font-size: 16px; line-height: 1.45; color: #2A2A2A;">Adding your own meal, ingredient by ingredient.</p></div>
+<div data-comp="d4f" data-i="2" style="display: none;"><p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">Recipes</p><p style="margin: 6px 0 0; font-size: 16px; line-height: 1.45; color: #2A2A2A;">You can search by name, but not by time, difficulty or mood.</p></div>
+</div>
+</div>
+
+<div role="group" aria-label="FatSecret screenshots, 4 screens" style="display: flex; flex-direction: column; gap: 16px;">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+<h3 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">FatSecret</h3>
+<div style="display: flex; align-items: center; gap: 8px;">
+<span data-comp-counter="fs" style="margin-right: 4px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; color: #5E5E5E; font-variant-numeric: tabular-nums;">1 / 4</span>
+<button type="button" aria-label="Previous FatSecret screen" data-comp-prev="fs" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; border: 1px solid #111111; border-radius: 50%; background: #FCFCFB; color: #111111; cursor: pointer; opacity: 0.35;"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M11 4 6 9l5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+<button type="button" aria-label="Next FatSecret screen" data-comp-next="fs" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; border: 1px solid #111111; border-radius: 50%; background: #FCFCFB; color: #111111; cursor: pointer; opacity: 1;"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M7 4l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+</div>
+</div>
+<img data-comp="fs" data-i="0" src="assets/fs-add-sheet.jpg" alt="FatSecret add sheet with Barcode Scan, Take Photo and a locked Smart Assistant" style="display: block; width: 100%; height: auto; aspect-ratio: 640 / 1314; object-fit: cover; border-radius: 20px;">
+<img data-comp="fs" data-i="1" src="assets/fs-allergens.jpg" alt="FatSecret food page for broccoli from a Ukrainian brand, asking which allergens it contains" style="display: none; width: 100%; height: auto; aspect-ratio: 640 / 1314; object-fit: cover; border-radius: 20px;">
+<img data-comp="fs" data-i="2" src="assets/fs-nutrition.jpg" alt="FatSecret nutritional information for 100 g of broccoli" style="display: none; width: 100%; height: auto; aspect-ratio: 640 / 1314; object-fit: cover; border-radius: 20px;">
+<img data-comp="fs" data-i="3" src="assets/fs-diary.jpg" alt="FatSecret food diary with breakfast logged" style="display: none; width: 100%; height: auto; aspect-ratio: 640 / 1314; object-fit: cover; border-radius: 20px;">
+<div aria-live="polite">
+<div data-comp="fs" data-i="0" style="display: block;"><p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">Add sheet</p><p style="margin: 6px 0 0; font-size: 16px; line-height: 1.45; color: #2A2A2A;">Lots of ways to add food, but the smartest one is locked.</p></div>
+<div data-comp="fs" data-i="1" style="display: none;"><p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">Ukrainian brand</p><p style="margin: 6px 0 0; font-size: 16px; line-height: 1.45; color: #2A2A2A;">Lots of Ukrainian brands, and it lets you add allergies.</p></div>
+<div data-comp="fs" data-i="2" style="display: none;"><p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">Nutrition</p><p style="margin: 6px 0 0; font-size: 16px; line-height: 1.45; color: #2A2A2A;">Full nutrition details for each food.</p></div>
+<div data-comp="fs" data-i="3" style="display: none;"><p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">Food diary</p><p style="margin: 6px 0 0; font-size: 16px; line-height: 1.45; color: #2A2A2A;">The diary after logging breakfast.</p></div>
+</div>
+</div>
+
+<div role="group" aria-label="Yazio screenshots and a screen recording, 3 screens" style="display: flex; flex-direction: column; gap: 16px;">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+<h3 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">Yazio</h3>
+<div style="display: flex; align-items: center; gap: 8px;">
+<span data-comp-counter="yz" style="margin-right: 4px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; color: #5E5E5E; font-variant-numeric: tabular-nums;">1 / 3</span>
+<button type="button" aria-label="Previous Yazio screen" data-comp-prev="yz" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; border: 1px solid #111111; border-radius: 50%; background: #FCFCFB; color: #111111; cursor: pointer; opacity: 0.35;"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M11 4 6 9l5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+<button type="button" aria-label="Next Yazio screen" data-comp-next="yz" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; border: 1px solid #111111; border-radius: 50%; background: #FCFCFB; color: #111111; cursor: pointer; opacity: 1;"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M7 4l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+</div>
+</div>
+<img data-comp="yz" data-i="0" src="assets/yz-special-event.jpg" alt="Yazio onboarding question: Do you have a special event coming up that's motivating you to lose weight?" style="display: block; width: 100%; height: auto; aspect-ratio: 640 / 1314; object-fit: cover; border-radius: 20px;">
+<img data-comp="yz" data-i="1" src="assets/yz-recipes.jpg" alt="Yazio Welcome to recipes screen asking about your cooking habits" style="display: none; width: 100%; height: auto; aspect-ratio: 640 / 1314; object-fit: cover; border-radius: 20px;">
+<video preload="metadata" data-comp="yz" data-i="2" src="assets/yazio-pro.mp4" poster="assets/yazio-pro-poster.jpg" autoplay="" muted="" loop="" playsinline="" controls="" aria-label="Screen recording of the Yazio free version: most nutrition details and meal breakdowns are locked behind Pro" style="display: none; width: 100%; height: auto; aspect-ratio: 640 / 1314; object-fit: cover; border-radius: 20px; background: #171919;"></video>
+<div aria-live="polite">
+<div data-comp="yz" data-i="0" style="display: block;"><p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">“Special event coming up”</p><p style="margin: 6px 0 0; font-size: 16px; line-height: 1.45; color: #2A2A2A;">Some onboarding questions didn't feel necessary.</p></div>
+<div data-comp="yz" data-i="1" style="display: none;"><p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">Recipes</p><p style="margin: 6px 0 0; font-size: 16px; line-height: 1.45; color: #2A2A2A;">Recipes start with questions about your cooking habits.</p></div>
+<div data-comp="yz" data-i="2" style="display: none;"><p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">Free version · screen recording</p><p style="margin: 6px 0 0; font-size: 16px; line-height: 1.45; color: #2A2A2A;">Most details are locked behind Pro.</p></div>
+</div>
+</div>
+
+</div>
+
+<div style="margin-top: clamp(64px, 7vw, 96px); padding-top: 20px; border-top: 1px solid #111111;">
+<h3 style="margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-weight: 700; font-size: clamp(30px, 3vw, 42px); line-height: 1.05; letter-spacing: -0.025em;">What I took from it</h3>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 24px; row-gap: 24px; margin-top: 40px;">
+<div style="display: flex; flex-direction: column; gap: 12px; padding: 26px 26px 28px; background: #FCFCFB; border-radius: 24px; box-shadow: 0 12px 32px rgba(17, 17, 17, 0.07);">
+<h4 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">Dine4Fit &amp; Yazio</h4>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #2A2A2A;">Showed me that onboarding can be short and clear.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px; padding: 26px 26px 28px; background: #FCFCFB; border-radius: 24px; box-shadow: 0 12px 32px rgba(17, 17, 17, 0.07);">
+<h4 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">FatSecret</h4>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #2A2A2A;">Has lots of Ukrainian brands and lets you add allergies.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px; padding: 26px 26px 28px; background: #FCFCFB; border-radius: 24px; box-shadow: 0 12px 32px rgba(17, 17, 17, 0.07);">
+<h4 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">Yazio</h4>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #2A2A2A;">Adjusts recipes to your cooking level.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px; padding: 26px 26px 28px; background: #FCFCFB; border-radius: 24px; box-shadow: 0 12px 32px rgba(17, 17, 17, 0.07);">
+<h4 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">The downside</h4>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #2A2A2A;">Ads and paywalls were everywhere, and Yazio's free version felt more like a preview of the paid one.</p>
+</div>
+</div>
+</div>
+
+<div style="margin-top: 56px; padding: clamp(32px, 4vw, 52px) clamp(28px, 4vw, 52px); background: #FCFCFB; border-radius: 24px; box-shadow: 0 12px 32px rgba(17, 17, 17, 0.07);">
+<p style="margin: 0; font-size: 17px; line-height: 1.4; color: #6F6F66;">The gap</p>
+<p style="margin: 18px 0 0; max-width: 1000px; font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; font-size: clamp(38px, 4.2vw, 58px); line-height: 1.06; letter-spacing: -0.01em; color: #237D02;">None of them know what's in your kitchen.</p>
+<p style="margin: 32px 0 0; padding-top: 28px; border-top: 1px solid #E6E3DC; max-width: 820px; font-size: clamp(19px, 1.8vw, 22px); line-height: 1.5; color: #4A4A45;">Only Yazio has a shopping list, and only if you pay. Finding a recipe mostly meant scrolling, not looking for something you actually feel like cooking. That's the gap MealCraft is for: the Fridge became a main section, and recipes are matched to what you already have.</p>
+</div>
+</section>
+
+<section id="redesign" aria-labelledby="h-redesign" style="padding: clamp(80px, 9vw, 128px) 0 0;">
+<div style="display: flex; flex-direction: column; gap: 14px; padding-top: 20px; border-top: 1px solid #111111;">
+<p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">(05)</p>
+<h2 id="h-redesign" style="margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-weight: 700; font-size: clamp(40px, 4.4vw, 60px); line-height: 1; letter-spacing: -0.03em;">Redesigning on intuition</h2>
+</div>
+<p style="max-width: 780px; margin: 36px 0 0; font-size: 19px; line-height: 1.6; color: #2A2A2A;">With all of that in my head, I jumped straight into Figma. I'll be honest here: I didn't follow any formal UX method at this point. I just went screen by screen. I fixed what annoyed me in the old app and took what I liked from the competitors, like asking one question per screen in onboarding, the way Dine4Fit and Yazio do.</p>
+<div role="tablist" aria-label="Redesigned screens by flow" style="display: flex; flex-wrap: wrap; gap: 0 32px; margin-top: 48px; border-bottom: 1px solid #D6D2CA;">
+<button type="button" role="tab" id="tab-onb" aria-controls="panel-onb" aria-selected="true" tabindex="0" data-tab="onb" style="display: flex; align-items: center; gap: 8px; min-height: 48px; margin-bottom: -1px; padding: 0 2px; border: 0; border-bottom: 2px solid #111111; background: transparent; font-family: inherit; font-size: 16px; font-weight: 500; color: #111111; cursor: pointer;">Onboarding <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; color: #5E5E5E;">4</span></button>
+<button type="button" role="tab" id="tab-fridge" aria-controls="panel-fridge" aria-selected="false" tabindex="-1" data-tab="fridge" style="display: flex; align-items: center; gap: 8px; min-height: 48px; margin-bottom: -1px; padding: 0 2px; border: 0; border-bottom: 2px solid transparent; background: transparent; font-family: inherit; font-size: 16px; font-weight: 500; color: #5E5E5E; cursor: pointer;">Fridge <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; color: #5E5E5E;">4</span></button>
+<button type="button" role="tab" id="tab-cook" aria-controls="panel-cook" aria-selected="false" tabindex="-1" data-tab="cook" style="display: flex; align-items: center; gap: 8px; min-height: 48px; margin-bottom: -1px; padding: 0 2px; border: 0; border-bottom: 2px solid transparent; background: transparent; font-family: inherit; font-size: 16px; font-weight: 500; color: #5E5E5E; cursor: pointer;">Home, recipes &amp; meal plan <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; color: #5E5E5E;">4</span></button>
+<button type="button" role="tab" id="tab-settings" aria-controls="panel-settings" aria-selected="false" tabindex="-1" data-tab="settings" style="display: flex; align-items: center; gap: 8px; min-height: 48px; margin-bottom: -1px; padding: 0 2px; border: 0; border-bottom: 2px solid transparent; background: transparent; font-family: inherit; font-size: 16px; font-weight: 500; color: #5E5E5E; cursor: pointer;">Settings <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; color: #5E5E5E;">2</span></button>
+</div>
+<div role="tabpanel" id="panel-onb" aria-labelledby="tab-onb" data-panel="onb" aria-label="Onboarding screens" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 24px; row-gap: 48px; align-items: start; margin-top: 40px;">
+<figure style="margin: 0;"><img src="assets/splash.webp" alt="MealCraft splash screen with an illustrated plant and the words Plan, Cook, Enjoy" style="display: block; width: 100%; height: auto; filter: drop-shadow(0 0 1px rgba(17, 17, 17, 0.28)) drop-shadow(0 12px 28px rgba(17, 17, 17, 0.08));"><figcaption style="margin-top: 14px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;"><span style="display: block;">Splash screen</span><span style="display: block; margin-top: 6px; font-family: Inter, system-ui, sans-serif; font-size: 16px; line-height: 1.45; letter-spacing: 0; text-transform: none; color: #2A2A2A;">The first thing you see when the app opens.</span></figcaption></figure>
+<figure style="margin: 0;"><img src="assets/onb-step2.webp" alt="Onboarding step 2 of 4: What's your diet type?, with Vegetarian selected" style="display: block; width: 100%; height: auto; filter: drop-shadow(0 0 1px rgba(17, 17, 17, 0.28)) drop-shadow(0 12px 28px rgba(17, 17, 17, 0.08));"><figcaption style="margin-top: 14px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;"><span style="display: block;">Step 2 · diet type</span><span style="display: block; margin-top: 6px; font-family: Inter, system-ui, sans-serif; font-size: 16px; line-height: 1.45; letter-spacing: 0; text-transform: none; color: #2A2A2A;">One question per screen, with a progress bar and “Skip for now”.</span></figcaption></figure>
+<figure style="margin: 0;"><img src="assets/onb-step3.webp" alt="Onboarding step 3 of 4: allergies and dislikes to leave out of suggestions" style="display: block; width: 100%; height: auto; filter: drop-shadow(0 0 1px rgba(17, 17, 17, 0.28)) drop-shadow(0 12px 28px rgba(17, 17, 17, 0.08));"><figcaption style="margin-top: 14px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;"><span style="display: block;">Step 3 · restrictions</span><span style="display: block; margin-top: 6px; font-family: Inter, system-ui, sans-serif; font-size: 16px; line-height: 1.45; letter-spacing: 0; text-transform: none; color: #2A2A2A;">Allergies and dislikes are left out of every suggestion.</span></figcaption></figure>
+<figure style="margin: 0;"><img src="assets/onb-step4.webp" alt="Onboarding step 4 of 4: daily calorie target and priorities" style="display: block; width: 100%; height: auto; filter: drop-shadow(0 0 1px rgba(17, 17, 17, 0.28)) drop-shadow(0 12px 28px rgba(17, 17, 17, 0.08));"><figcaption style="margin-top: 14px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;"><span style="display: block;">Step 4 · nutrition goals</span><span style="display: block; margin-top: 6px; font-family: Inter, system-ui, sans-serif; font-size: 16px; line-height: 1.45; letter-spacing: 0; text-transform: none; color: #2A2A2A;">A daily calorie target and priorities that guide recipe suggestions.</span></figcaption></figure>
+</div>
+<div role="tabpanel" id="panel-fridge" aria-labelledby="tab-fridge" data-panel="fridge" aria-label="Fridge screens" style="display: none; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 24px; row-gap: 48px; align-items: start; margin-top: 40px;">
+<figure style="margin: 0;"><img src="assets/home-empty.webp" alt="Home screen before any food is added, with a Start with your fridge prompt" style="display: block; width: 100%; height: auto; filter: drop-shadow(0 0 1px rgba(17, 17, 17, 0.28)) drop-shadow(0 12px 28px rgba(17, 17, 17, 0.08));"><figcaption style="margin-top: 14px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;"><span style="display: block;">Home · first visit</span><span style="display: block; margin-top: 6px; font-family: Inter, system-ui, sans-serif; font-size: 16px; line-height: 1.45; letter-spacing: 0; text-transform: none; color: #2A2A2A;">Home points you to the fridge first.</span></figcaption></figure>
+<figure style="margin: 0;"><img src="assets/fridge-empty.webp" alt="Empty fridge with four ways to add items: receipt link, photo, typing or voice" style="display: block; width: 100%; height: auto; filter: drop-shadow(0 0 1px rgba(17, 17, 17, 0.28)) drop-shadow(0 12px 28px rgba(17, 17, 17, 0.08));"><figcaption style="margin-top: 14px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;"><span style="display: block;">Fridge · empty</span><span style="display: block; margin-top: 6px; font-family: Inter, system-ui, sans-serif; font-size: 16px; line-height: 1.45; letter-spacing: 0; text-transform: none; color: #2A2A2A;">Four ways to add food: receipt link, photo, typing or voice.</span></figcaption></figure>
+<figure style="margin: 0;"><img src="assets/add-items.webp" alt="Add items sheet over the fridge: receipt link, take a photo, type items or voice input" style="display: block; width: 100%; height: auto; filter: drop-shadow(0 0 1px rgba(17, 17, 17, 0.28)) drop-shadow(0 12px 28px rgba(17, 17, 17, 0.08));"><figcaption style="margin-top: 14px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;"><span style="display: block;">Fridge · add items</span><span style="display: block; margin-top: 6px; font-family: Inter, system-ui, sans-serif; font-size: 16px; line-height: 1.45; letter-spacing: 0; text-transform: none; color: #2A2A2A;">The same four options open over your fridge.</span></figcaption></figure>
+<figure style="margin: 0;"><img src="assets/fridge.webp" alt="My Fridge with items grouped into Greens, Protein and Dairy, expiry badges and an add button" style="display: block; width: 100%; height: auto; filter: drop-shadow(0 0 1px rgba(17, 17, 17, 0.28)) drop-shadow(0 12px 28px rgba(17, 17, 17, 0.08));"><figcaption style="margin-top: 14px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;"><span style="display: block;">Fridge · full</span><span style="display: block; margin-top: 6px; font-family: Inter, system-ui, sans-serif; font-size: 16px; line-height: 1.45; letter-spacing: 0; text-transform: none; color: #2A2A2A;">Items grouped by category, with expiry badges.</span></figcaption></figure>
+</div>
+<div role="tabpanel" id="panel-cook" aria-labelledby="tab-cook" data-panel="cook" aria-label="Home, recipes and meal plan screens" style="display: none; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 24px; row-gap: 48px; align-items: start; margin-top: 40px;">
+<figure style="margin: 0;"><img src="assets/home-full.webp" alt="Home screen with today's calories and macros, a fridge summary, the shopping list, recipes and the meal plan" style="display: block; width: 100%; height: auto; filter: drop-shadow(0 0 1px rgba(17, 17, 17, 0.28)) drop-shadow(0 12px 28px rgba(17, 17, 17, 0.08));"><figcaption style="margin-top: 14px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;"><span style="display: block;">Home</span><span style="display: block; margin-top: 6px; font-family: Inter, system-ui, sans-serif; font-size: 16px; line-height: 1.45; letter-spacing: 0; text-transform: none; color: #2A2A2A;">Today's macros, the fridge, shopping list, recipes and meal plan in one place.</span></figcaption></figure>
+<figure style="margin: 0;"><img src="assets/recipes.webp" alt="Recipes list showing how much of each recipe you can make with what's in your fridge" style="display: block; width: 100%; height: auto; filter: drop-shadow(0 0 1px rgba(17, 17, 17, 0.28)) drop-shadow(0 12px 28px rgba(17, 17, 17, 0.08));"><figcaption style="margin-top: 14px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;"><span style="display: block;">Recipes</span><span style="display: block; margin-top: 6px; font-family: Inter, system-ui, sans-serif; font-size: 16px; line-height: 1.45; letter-spacing: 0; text-transform: none; color: #2A2A2A;">Each recipe shows how much you can make with what's in your fridge.</span></figcaption></figure>
+<figure style="margin: 0;"><img src="assets/recipe.webp" alt="Spinach and cheese omelette recipe with ingredients from the fridge, steps and nutrition per serving" style="display: block; width: 100%; height: auto; filter: drop-shadow(0 0 1px rgba(17, 17, 17, 0.28)) drop-shadow(0 12px 28px rgba(17, 17, 17, 0.08));"><figcaption style="margin-top: 14px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;"><span style="display: block;">Recipe</span><span style="display: block; margin-top: 6px; font-family: Inter, system-ui, sans-serif; font-size: 16px; line-height: 1.45; letter-spacing: 0; text-transform: none; color: #2A2A2A;">Ingredients from your fridge, steps and nutrition per serving.</span></figcaption></figure>
+<figure style="margin: 0;"><img src="assets/meal-plan.webp" alt="Meal plan for one day with breakfast, lunch and an empty dinner slot" style="display: block; width: 100%; height: auto; filter: drop-shadow(0 0 1px rgba(17, 17, 17, 0.28)) drop-shadow(0 12px 28px rgba(17, 17, 17, 0.08));"><figcaption style="margin-top: 14px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;"><span style="display: block;">Meal plan</span><span style="display: block; margin-top: 6px; font-family: Inter, system-ui, sans-serif; font-size: 16px; line-height: 1.45; letter-spacing: 0; text-transform: none; color: #2A2A2A;">A day's meals, with an AI tip for the empty slot.</span></figcaption></figure>
+</div>
+<div role="tabpanel" id="panel-settings" aria-labelledby="tab-settings" data-panel="settings" aria-label="Settings screens" style="display: none; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 24px; row-gap: 48px; align-items: start; margin-top: 40px;">
+<figure style="margin: 0;"><img src="assets/settings-household.webp" alt="Settings, Household tab with one member and an Add Household Member button" style="display: block; width: 100%; height: auto; filter: drop-shadow(0 0 1px rgba(17, 17, 17, 0.28)) drop-shadow(0 12px 28px rgba(17, 17, 17, 0.08));"><figcaption style="margin-top: 14px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;"><span style="display: block;">Settings · household</span><span style="display: block; margin-top: 6px; font-family: Inter, system-ui, sans-serif; font-size: 16px; line-height: 1.45; letter-spacing: 0; text-transform: none; color: #2A2A2A;">One row per household member. Tap to edit.</span></figcaption></figure>
+<figure style="margin: 0;"><img src="assets/settings-general.webp" alt="Settings, General tab with language and region, appearance and sign out" style="display: block; width: 100%; height: auto; filter: drop-shadow(0 0 1px rgba(17, 17, 17, 0.28)) drop-shadow(0 12px 28px rgba(17, 17, 17, 0.08));"><figcaption style="margin-top: 14px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;"><span style="display: block;">Settings · general</span><span style="display: block; margin-top: 6px; font-family: Inter, system-ui, sans-serif; font-size: 16px; line-height: 1.45; letter-spacing: 0; text-transform: none; color: #2A2A2A;">Language, region, appearance and sign out on one tab.</span></figcaption></figure>
+</div>
+</section>
+
+<section id="heuristics" aria-labelledby="h-heuristics" style="padding: clamp(80px, 9vw, 128px) 0 0;">
+<div style="display: flex; flex-direction: column; gap: 14px; padding-top: 20px; border-top: 1px solid #111111;">
+<p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">(06)</p>
+<h2 id="h-heuristics" style="margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-weight: 700; font-size: clamp(40px, 4.4vw, 60px); line-height: 1; letter-spacing: -0.03em;">Heuristic evaluation</h2>
+</div>
+<p style="max-width: 780px; margin: 36px 0 0; font-size: 19px; line-height: 1.6; color: #2A2A2A;">The new screens felt so much better to me. But “it feels better to me” isn't proof, and I knew that. So once the redesign was done, I went back to the original app and checked it properly against Nielsen's 10 usability heuristics. I wanted to see whether my changes actually fixed real problems, or whether I just liked them more.</p>
+<p style="max-width: 780px; margin: 20px 0 0; font-size: 19px; line-height: 1.6; color: #2A2A2A;">I found problems in three places: onboarding, adding groceries and settings. Here's what I found in each, and what I changed.</p>
+
+<div style="display: flex; flex-direction: column; gap: 32px; margin-top: 48px;">
+
+<article style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 26px; padding: 12px 0;">
+<div style="grid-column: 1 / span 5; grid-row: 1; display: flex; flex-direction: column; gap: 18px;">
+<span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 72px; line-height: 0.85; color: #237D02;">01</span>
+<h3 style="margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-weight: 700; font-size: 32px; line-height: 1.1; letter-spacing: -0.02em; width: 1061px">The old onboarding was long, confusing, and kept throwing you back to the dashboard.</h3>
+</div>
+<div style="grid-column: 1 / span 5; grid-row: 2; align-self: start; padding: 22px 24px; background: #FCFCFB; border-radius: 24px; box-shadow: 0 12px 32px rgba(17, 17, 17, 0.07);">
+<p style="margin: 0; font-size: 15px; color: #6F6F66;">→ What I changed</p>
+<ul style="margin: 10px 0 0; padding-left: 20px; font-size: 18px; line-height: 1.55; color: #111111;">
+<li>4 steps</li>
+<li>One question per screen</li>
+<li>A progress bar</li>
+<li>Continue goes forward, Back goes back</li>
+<li>“Skip for now” on every step</li>
+</ul>
+<div style="margin-top: 20px; padding-top: 18px; border-top: 1px solid #E6E3DC;">
+<p style="margin: 0; font-size: 15px; color: #6F6F66;">→ Result</p>
+<p style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; margin: 12px 0 0;"><span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 72px; line-height: 0.9; color: #6F6F66;">36</span><span aria-hidden="true" style="font-size: 32px; line-height: 1; color: #2A2A2A;">→</span><span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;">down to about</span><span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 72px; line-height: 0.9; color: #237D02;">~12</span></p>
+<p style="margin: 8px 0 0; font-size: 17px; line-height: 1.5; color: #2A2A2A;">clicks to get through onboarding</p>
+</div>
+</div>
+<div style="grid-column: 7 / span 6; grid-row: 2; display: flex; flex-direction: column; gap: 16px; padding-top: 22px;">
+<p style="margin: 0; font-size: 18px; line-height: 1.55;"><strong style="font-weight: 600;">What I found:</strong></p>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #2A2A2A;"><strong style="font-weight: 600; color: #111111;">Visibility of system status, user control and freedom.</strong> After every step you're sent back to the dashboard and have to press Start again, with nothing telling you what's next.</p>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #2A2A2A;"><strong style="font-weight: 600; color: #111111;">Match between system and the real world.</strong> “Back to Setup” actually moves you forward.</p>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #2A2A2A;"><strong style="font-weight: 600; color: #111111;">Aesthetic and minimalist design.</strong> The very first screen asks about 6 different things at once.</p>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #2A2A2A;"><strong style="font-weight: 600; color: #111111;">User control and freedom.</strong> You can't skip the first step, and there's no “finish later” option.</p>
+</div>
+<div style="grid-column: 1 / -1; grid-row: 3; margin-top: 10px; display: flex; flex-direction: column; gap: 48px;">
+<figure style="margin: 0;"><video preload="metadata" src="assets/mealcraft-before-onboarding.mp4" poster="assets/poster-before-onboarding.jpg" autoplay="" muted="" loop="" playsinline="" controls="" aria-label="Screen recording of the original onboarding, at 1.5x speed: after saving nutrition goals you go back to the dashboard checklist, press Start for the next step, then land on the dashboard again" style="display: block; width: 100%; height: auto; aspect-ratio: 2304 / 1356; border: 1px solid #D6D2CA; box-sizing: border-box; background: #FFFFFF;"></video><figcaption style="margin-top: 12px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">Before · web app · screen recording (1.5x speed)</figcaption></figure>
+<figure style="margin: 0; display: flex; flex-direction: column; align-items: center;"><video preload="metadata" src="assets/mealcraft-after-onboarding.mp4" poster="assets/poster-after-onboarding.jpg" autoplay="" muted="" loop="" playsinline="" controls="" aria-label="Prototype of the new onboarding: name, diet type, restrictions and nutrition goals, one question per screen with a progress bar, ending on the home screen with an empty fridge and a prompt to add items" style="display: block; width: min(100%, 340px); height: auto; aspect-ratio: 732 / 1496"></video><figcaption style="margin-top: 12px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E; text-align: center;">After · mobile · prototype</figcaption></figure>
+</div>
+</article>
+
+<div aria-hidden="true" style="height: 1px; background: rgba(17, 17, 17, 0.12);"></div>
+
+<article style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 26px; padding: 12px 0;">
+<div style="grid-column: 1 / span 5; grid-row: 1; display: flex; flex-direction: column; gap: 18px;">
+<span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 72px; line-height: 0.85; color: #237D02;">02</span>
+<h3 style="margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-weight: 700; font-size: 32px; line-height: 1.1; letter-spacing: -0.02em; width: 823px">In the old app, adding food was harder than it should be.</h3>
+</div>
+<div style="grid-column: 1 / span 5; grid-row: 2; align-self: start; padding: 22px 24px; background: #FCFCFB; border-radius: 24px; box-shadow: 0 12px 32px rgba(17, 17, 17, 0.07);">
+<p style="margin: 0; font-size: 15px; color: #6F6F66;">→ What I changed</p>
+<ul style="margin: 10px 0 0; padding-left: 20px; font-size: 18px; line-height: 1.55; color: #111111;">
+<li>Items grouped into category rows</li>
+<li>A + button that's always there</li>
+<li>An “Add” tile in each category</li>
+<li>Expiry badges</li>
+<li>Category required or with a default</li>
+<li>“Fridge” in the bottom bar</li>
+<li>Nutrition shown right in the meal and recipe screens</li>
+</ul>
+</div>
+<div style="grid-column: 7 / span 6; grid-row: 2; display: flex; flex-direction: column; gap: 16px; padding-top: 22px;">
+<p style="margin: 0; font-size: 18px; line-height: 1.55;"><strong style="font-weight: 600;">What I found:</strong></p>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #2A2A2A;"><strong style="font-weight: 600; color: #111111;">Consistency and standards.</strong> After the first item, the Add button disappears and hides inside “Import.”</p>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #2A2A2A;"><strong style="font-weight: 600; color: #111111;">Error prevention.</strong> Category is optional and hidden under “More options,” so items without one disappear when you filter.</p>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #2A2A2A;"><strong style="font-weight: 600; color: #111111;">Flexibility and efficiency.</strong> Everything sits in one long list, with no groups or filters.</p>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #2A2A2A;"><strong style="font-weight: 600; color: #111111;">Match between system and the real world.</strong> “Pantry &amp; Storage” instead of just “Fridge.”</p>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #2A2A2A;"><strong style="font-weight: 600; color: #111111;">Recognition rather than recall.</strong> Nutrition is a separate section, away from your meals.</p>
+</div>
+<div style="grid-column: 1 / -1; grid-row: 3; margin-top: 10px; display: flex; flex-direction: column; gap: 48px;">
+<figure style="margin: 0;"><video preload="metadata" src="assets/mealcraft-before-groceries.mp4" poster="assets/poster-before-groceries.jpg" autoplay="" muted="" loop="" playsinline="" controls="" aria-label="Screen recording of adding groceries in the original app, at 1.5x speed: after the first item, the next one is added through the Import menu, the Category column stays empty, and filtering by Produce hides every item" style="display: block; width: 100%; height: auto; aspect-ratio: 2304 / 1356; border: 1px solid #D6D2CA; box-sizing: border-box; background: #FFFFFF;"></video><figcaption style="margin-top: 12px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">Before · web app · screen recording (1.5x speed)</figcaption></figure>
+<figure style="margin: 0; display: flex; flex-direction: column; align-items: center;"><video preload="metadata" src="assets/mealcraft-after-groceries.mp4" poster="assets/poster-after-groceries.jpg" autoplay="" muted="" loop="" playsinline="" controls="" aria-label="Prototype of the new Fridge screen: items grouped by category with expiry badges, the plus button opening Add items, then a recipe with nutrition per serving" style="display: block; width: min(100%, 340px); height: auto; aspect-ratio: 732 / 1496; background: #FFFFFF;"></video><figcaption style="margin-top: 12px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E; text-align: center;">After · mobile · prototype</figcaption></figure>
+</div>
+</article>
+
+<div aria-hidden="true" style="height: 1px; background: rgba(17, 17, 17, 0.12);"></div>
+
+<article style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 26px; padding: 12px 0;">
+<div style="grid-column: 1 / span 5; grid-row: 1; display: flex; flex-direction: column; gap: 18px;">
+<span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 72px; line-height: 0.85; color: #237D02;">03</span>
+<h3 style="margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-weight: 700; font-size: 32px; line-height: 1.1; letter-spacing: -0.02em;">Too many options available.</h3>
+</div>
+<div style="grid-column: 1 / span 5; grid-row: 2; align-self: start; padding: 22px 24px; background: #FCFCFB; border-radius: 24px; box-shadow: 0 12px 32px rgba(17, 17, 17, 0.07);">
+<p style="margin: 0; font-size: 15px; color: #6F6F66;">→ What I changed</p>
+<ul style="margin: 10px 0 0; padding-left: 20px; font-size: 18px; line-height: 1.55; color: #111111;">
+<li>Two tabs (General and Household)</li>
+<li>No granular toggles</li>
+<li>Tap a member to edit</li>
+</ul>
+</div>
+<div style="grid-column: 7 / span 6; grid-row: 2; display: flex; flex-direction: column; gap: 16px; padding-top: 22px;">
+<p style="margin: 0; font-size: 18px; line-height: 1.55;"><strong style="font-weight: 600;">What I found:</strong></p>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #2A2A2A;"><strong style="font-weight: 600; color: #111111;">Aesthetic and minimalist design.</strong> Three settings tabs and a huge panel of customization toggles.</p>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #2A2A2A;"><strong style="font-weight: 600; color: #111111;">Aesthetic and minimalist design.</strong> Household preferences in a form that's always fully open.</p>
+</div>
+<div style="grid-column: 1 / -1; grid-row: 3; margin-top: 10px; display: flex; flex-direction: column; gap: 48px;">
+<div>
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px;">
+<p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">Before · web app · swipe to see all 5 screens →</p>
+<div style="display: flex; align-items: center; gap: 12px;">
+<span data-car-counter="b" style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; color: #5E5E5E; font-variant-numeric: tabular-nums;">1 / 5</span>
+<button type="button" aria-label="Previous settings screenshot" data-car-prev="b" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; border: 1px solid #111111; border-radius: 50%; background: #FCFCFB; color: #111111; cursor: pointer; opacity: 0.35;"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M11 4 6 9l5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+<button type="button" aria-label="Next settings screenshot" data-car-next="b" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; border: 1px solid #111111; border-radius: 50%; background: #FCFCFB; color: #111111; cursor: pointer; opacity: 1;"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M7 4l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+</div>
+</div>
+<div class="mc-carousel" role="group" aria-label="Screenshots of the original settings, 5 slides" data-car="b" tabindex="0" style="display: flex; gap: 24px; margin-top: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; overscroll-behavior-x: contain;">
+<figure style="flex: 0 0 88%; margin: 0; scroll-snap-align: start;"><img src="assets/set-general.jpg" alt="Original Settings, General tab: language, country, currency and sign out" style="display: block; width: 100%; height: auto; aspect-ratio: 2048 / 922; border: 1px solid #D6D2CA; box-sizing: border-box;"><figcaption style="margin-top: 12px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">1 · Settings · general</figcaption></figure>
+<figure style="flex: 0 0 88%; margin: 0; scroll-snap-align: start;"><img src="assets/set-household.jpg" alt="Original Settings, Household tab: a member card with dietary restrictions, allergies and dislikes always open" style="display: block; width: 100%; height: auto; aspect-ratio: 2048 / 922; border: 1px solid #D6D2CA; box-sizing: border-box;"><figcaption style="margin-top: 12px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">2 · Settings · household</figcaption></figure>
+<figure style="flex: 0 0 88%; margin: 0; scroll-snap-align: start;"><img src="assets/set-household-2.jpg" alt="Original Settings, Household tab scrolled down: diet type, nutritional goals and meal preferences checkboxes" style="display: block; width: 100%; height: auto; aspect-ratio: 2048 / 922; border: 1px solid #D6D2CA; box-sizing: border-box;"><figcaption style="margin-top: 12px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">3 · Settings · household, scrolled down</figcaption></figure>
+<figure style="flex: 0 0 88%; margin: 0; scroll-snap-align: start;"><img src="assets/set-appearance.jpg" alt="Original Settings, Appearance tab: minimal view, theme and interface customisation" style="display: block; width: 100%; height: auto; aspect-ratio: 2048 / 922; border: 1px solid #D6D2CA; box-sizing: border-box;"><figcaption style="margin-top: 12px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">4 · Settings · appearance</figcaption></figure>
+<figure style="flex: 0 0 88%; margin: 0; scroll-snap-align: start;"><img src="assets/set-appearance-2.jpg" alt="Original Settings, Appearance tab scrolled down: options to show or hide sidebar sections and dashboard content" style="display: block; width: 100%; height: auto; aspect-ratio: 2048 / 922; border: 1px solid #D6D2CA; box-sizing: border-box;"><figcaption style="margin-top: 12px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">5 · Settings · appearance, scrolled down</figcaption></figure>
+</div>
+<div aria-hidden="true" style="display: flex; justify-content: center; gap: 6px; margin-top: 20px;">
+<span data-car-dot="b" style="display: block; width: 24px; height: 8px; border-radius: 4px; background: #111111; transition: width 0.2s ease;"></span><span data-car-dot="b" style="display: block; width: 8px; height: 8px; border-radius: 4px; background: #C9C5BC; transition: width 0.2s ease;"></span><span data-car-dot="b" style="display: block; width: 8px; height: 8px; border-radius: 4px; background: #C9C5BC; transition: width 0.2s ease;"></span><span data-car-dot="b" style="display: block; width: 8px; height: 8px; border-radius: 4px; background: #C9C5BC; transition: width 0.2s ease;"></span><span data-car-dot="b" style="display: block; width: 8px; height: 8px; border-radius: 4px; background: #C9C5BC; transition: width 0.2s ease;"></span>
+</div>
+</div>
+<figure style="margin: 0; display: flex; flex-direction: column; align-items: center;"><video preload="metadata" src="assets/mealcraft-after-settings.mp4" poster="assets/poster-after-settings.jpg" autoplay="" muted="" loop="" playsinline="" controls="" aria-label="Prototype of the new Settings: the Household tab with one member row, then the General tab with language, country, currency, appearance and sign out" style="display: block; width: min(100%, 340px); height: auto; aspect-ratio: 732 / 1496; background: #FFFFFF;"></video><figcaption style="margin-top: 12px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E; text-align: center;">After · mobile · prototype</figcaption></figure>
+</div>
+</article>
+
+</div>
+</section>
+
+<section id="reflection" aria-labelledby="h-reflection" style="padding: clamp(80px, 9vw, 128px) 0 0;">
+<div style="display: flex; flex-direction: column; gap: 14px; padding-top: 20px; border-top: 1px solid #111111;">
+<p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">(07)</p>
+<h2 id="h-reflection" style="margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-weight: 700; font-size: clamp(40px, 4.4vw, 60px); line-height: 1; letter-spacing: -0.03em;">Reflection</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; row-gap: 24px; margin-top: 40px;">
+<div style="grid-column: 1 / -1; display: flex; flex-direction: column; gap: 12px; padding: 26px 26px 28px; border-radius: 24px; padding-left: 0px">
+<h3 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em;">Next time, the research comes first</h3>
+<p style="max-width: 1034px; margin: 0; font-size: 17px; line-height: 1.6; color: #2A2A2A;">Looking back, I should have evaluated the old app before redesigning it. I went with my gut first and only checked afterwards, so some of my choices were more about what I liked than about a real problem.</p>
+</div>
+<div style="grid-column: 1 / -1; margin-top: 16px; padding: clamp(32px, 4vw, 52px) clamp(28px, 4vw, 52px); background: #FCFCFB; border-radius: 24px; box-shadow: 0 12px 32px rgba(17, 17, 17, 0.07);">
+<h3 style="margin: 0; font-size: 17px; font-weight: 400; line-height: 1.4; color: #6F6F66;">What I learned</h3>
+<p style="margin: 18px 0 0; max-width: 1000px; font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; font-size: clamp(34px, 3.6vw, 50px); line-height: 1.08; letter-spacing: -0.01em; color: #237D02;">A feature list tells you what an app does. Design decides how it feels to actually use it.</p>
+<p style="margin: 32px 0 0; padding-top: 28px; border-top: 1px solid #E6E3DC; max-width: 1034px; font-size: clamp(19px, 1.8vw, 22px); line-height: 1.5; color: #4A4A45;">The biggest lesson goes back to the very beginning. When I handed my partner a list of features, I thought that was enough. In a way it was: everything on the list got built, and it all worked. But the app was still hard to use. None of the problems I found later were missing features. They were all about how things worked: buttons hidden in the wrong place, words that didn't make sense, too many questions at once. That's the part I missed back then, and it's now the part I find most interesting.</p>
+</div>
+</div>
+</section>
+
+<section aria-label="Next project" style="padding: clamp(80px, 9vw, 128px) 0 clamp(64px, 8vw, 112px);">
+<a href="arrivee.html" style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px 32px; padding: 24px 0 32px; border-top: 1px solid #111111; border-bottom: 1px solid #111111; color: #111111; text-decoration: none;">
+<span style="display: flex; flex-direction: column; gap: 12px;">
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">Next project · 01 · Own app concept</span>
+<span style="font-family: 'Source Serif 4', Georgia, serif; font-weight: 700; font-size: clamp(48px, 6vw, 88px); line-height: 0.95; letter-spacing: -0.035em;">Arrivée</span>
+</span>
+<span style="display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 22px; border: 1px solid #111111; font-size: 15px; font-weight: 500; box-sizing: border-box;">Read case study <span aria-hidden="true">→</span></span>
+</a>
+</section>
+
+</main>
+
+<footer id="contact" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 24px; padding: 16px 0 32px; border-top: 1px solid #111111;">
+<p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">© 2026 Marharyta Dolha</p>
+<div style="display: flex; flex-wrap: wrap; gap: 0 24px; font-size: 15px; font-weight: 500;">
+<a href="mailto:marharytadolha@gmail.com" style="display: inline-flex; align-items: center; min-height: 44px; color: #111111; text-decoration: none;">Email</a>
+<a href="https://www.linkedin.com/in/marharyta-dolha/" style="display: inline-flex; align-items: center; min-height: 44px; color: #111111; text-decoration: none;">LinkedIn</a>
+<a href="https://wa.me/353830173933" style="display: inline-flex; align-items: center; min-height: 44px; color: #111111; text-decoration: none;">WhatsApp</a>
+<a href="#top" style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: #111111; text-decoration: none;">Back to top <span aria-hidden="true">↑</span></a>
+</div>
+</footer>
+
+</div>
+</div>
+<script src="js/site.js" defer></script>
+</body>
+</html>
