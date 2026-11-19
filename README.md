@@ -29,5 +29,6 @@ python3 -m http.server 8000
 - **Styling** is still mostly inline (exported from the design canvas). `css/site.css` adds what inline styles can't do. Rules that must beat an inline style use `!important`. Breakpoints: ≤1100px (small laptop/tablet), ≤760px (phone), ≤420px (small phone).
 - **Fonts** load from Google Fonts: Inter, JetBrains Mono, Source Serif 4 and Instrument Serif.
 - **Motion** (slides, fade-ins, smooth scrolling, page cross-fade, autoplaying videos and carousels) switches off when "reduce motion" is on.
+- **Analytics:** Vercel Web Analytics, loaded by the two `/_vercel/insights` script lines in each page's `<head>`. Vercel only serves that script on deployed sites, so it shows a 404 when you preview locally. Visits appear in the project's Analytics tab on Vercel.
 - **Links between pages** use `arrivee.html` etc. so the site also works locally; on Vercel those redirect to the clean URLs.
 - **Not on the site yet:** the CV download.
