@@ -8,128 +8,182 @@
 <meta property="og:title" content="Marharyta Dolha — UX/UI designer in Cork">
 <meta property="og:description" content="Marharyta (Martha) Dolha, UX/UI designer based in Cork. Case studies: Arrivée and MealCraft.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://marthamakes.com/">
+<meta property="og:image" content="https://marthamakes.com/assets/og/home.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://marthamakes.com/">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#F7F6F2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&amp;family=JetBrains+Mono:wght@400;500&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400..800;1,8..60,400..800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css">
+<script>document.documentElement.classList.add('js');</script>
 <style>
-body{margin:0; background-color: #FFFFFF; }
-</style>
-<style>
-/* Stopgap for smaller screens: desktop layout is unchanged. */
-img, video { max-width: 100%; }
-@media (max-width: 1200px) {
-  [style*="width: 1150px"], [style*="width: 1061px"], [style*="width: 823px"], [style*="width: 686px"] { width: auto !important; height: auto !important; }
-  [style*="height: 83px"] { height: auto !important; }
-}
-@media (max-width: 860px) {
-  [style*="grid-template-columns"] { grid-template-columns: minmax(0, 1fr) !important; }
-  [style*="grid-column"] { grid-column: auto !important; grid-row: auto !important; }
-  [data-panel] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
-  [style*="height: 638px"] { height: auto !important; }
-  [style*="padding-top: 22px"] { padding-top: 0 !important; }
-}
+body{margin:0; background-color: #F7F6F2; }
 </style>
 </head>
 <body>
-<div id="top" style="font-family: Inter, system-ui, -apple-system, 'Segoe UI', sans-serif; font-optical-sizing: auto; color: #111111; -webkit-font-smoothing: antialiased; background-color: #FFFFFF">
+<a class="skip-link" href="#main">Skip to content</a>
+<div id="top" style="font-family: Inter, system-ui, -apple-system, 'Segoe UI', sans-serif; font-optical-sizing: auto; color: #1B1915; -webkit-font-smoothing: antialiased; background-color: #F7F6F2">
 <div style="max-width: 1280px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 64px); box-sizing: border-box;">
 
-<header style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 32px; padding: 20px 0;">
-<a href="#top" style="display: inline-flex; align-items: center; min-height: 44px; font-family: 'Source Serif 4', Georgia, serif; font-size: 20px; font-weight: 400; letter-spacing: -0.02em; color: #111111; text-decoration: none">Marharyta Dolha</a>
+<header class="site-header" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 32px; padding: 20px 0;">
+<a class="site-logo" href="#top" style="display: inline-flex; align-items: center; min-height: 44px; font-family: 'Source Serif 4', Georgia, serif; font-size: 20px; font-weight: 400; letter-spacing: -0.02em; color: #1B1915; text-decoration: none"><svg viewBox="-26 -26 958.6 356" width="54" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M-26 100C-26 30.41 30.41 -26 100 -26C140.74 -26 176.97 -6.66 200 23.33C223.03 -6.66 259.26 -26 300 -26C340.74 -26 376.97 -6.66 400 23.33C423.03 -6.66 459.26 -26 500 -26C540.74 -26 576.97 -6.66 600 23.33C623.03 -6.66 659.26 -26 700 -26C769.59 -26 826 30.41 826 100V330H774V100C774 59.13 740.87 26 700 26C659.13 26 626 59.13 626 100V330H574V100C574 59.13 540.87 26 500 26C459.13 26 426 59.13 426 100V330H374V100C374 59.13 340.87 26 300 26C259.13 26 226 59.13 226 100V330H174V100C174 59.13 140.87 26 100 26C59.13 26 26 59.13 26 100V330H-26ZM872.8 270.2H932.6V330H872.8Z"/></svg><span>Marharyta Dolha</span></a>
 <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 0 36px;">
-<nav aria-label="Main" style="display: flex; flex-wrap: wrap; gap: 0 28px; font-size: 15px; font-weight: 500;">
-<a href="#projects" style="display: inline-flex; align-items: center; min-height: 44px; color: #111111; text-decoration: none;">Projects</a>
-<a href="#about-me" style="display: inline-flex; align-items: center; min-height: 44px; color: #111111; text-decoration: none;">About</a>
-<a href="#contact" style="display: inline-flex; align-items: center; min-height: 44px; color: #111111; text-decoration: none;">Contact</a>
+<nav class="site-nav" aria-label="Main" style="display: flex; flex-wrap: wrap; gap: 0 28px; font-size: 15px; font-weight: 500;">
+<a class="tlink" href="#projects" style="display: inline-flex; align-items: center; min-height: 44px; color: #1B1915; text-decoration: none;">Projects</a>
+<a class="tlink" href="index.html#about" style="display: inline-flex; align-items: center; min-height: 44px; color: #1B1915; text-decoration: none;">About</a>
+<a class="tlink" href="#contact" style="display: inline-flex; align-items: center; min-height: 44px; color: #1B1915; text-decoration: none;">Contact</a>
 </nav>
-<p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #5E5E5E; font-variant-numeric: tabular-nums;">IE · <span data-cork-time></span></p>
+<p class="clock" style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.04em; color: #67635C; font-variant-numeric: tabular-nums;">IE · <span data-cork-time></span></p>
 </div>
 </header>
 
-<section id="about-me" aria-labelledby="intro-title" style="display: flex; flex-direction: column; padding: clamp(64px, 9vw, 128px) 0 clamp(80px, 10vw, 136px);">
-<p style="margin: 0 0 24px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">Portfolio — 2026</p>
+<main id="main" tabindex="-1">
+
+<section id="about-me" class="intro" data-intro aria-labelledby="intro-title" style="display: flex; flex-direction: column; padding: clamp(64px, 9vw, 128px) 0 clamp(80px, 10vw, 136px);">
+<div class="intro-viewport">
+<div class="intro-track">
+<div class="intro-panel" id="intro-main">
+<p style="margin: 0 0 24px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #67635C;">Portfolio — 2026</p>
 <h1 id="intro-title" style="margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-weight: 700; font-size: clamp(56px, 7.6vw, 108px); line-height: 0.94; letter-spacing: -0.035em;">Hi, I'm Marharyta (Martha).</h1>
 <div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; margin-top: clamp(48px, 6vw, 80px);">
-<div style="grid-column: 1 / span 9; display: flex; flex-direction: column; gap: 20px; padding: 24px 0 32px; border-top: 1px solid #111111;">
+<div style="grid-column: 1 / span 9; display: flex; flex-direction: column; gap: 20px; padding: 24px 0 32px; border-top: 1px solid #1B1915;">
 <p style="margin: 0; font-size: clamp(24px, 2.4vw, 30px); line-height: 1.2; font-weight: 500; letter-spacing: -0.02em;">UX/UI designer based in Cork.</p>
-<p style="margin: 0; max-width: 720px; font-size: 21px; line-height: 1.55; color: #2A2A2A;">Before design, I studied and worked in marketing. I've designed two mobile apps on my own, and both started with a problem from my own life: getting from the airport to the city on a budget, and a fifth of our groceries ending up in the bin.</p>
+<p style="margin: 0; max-width: 720px; font-size: 21px; line-height: 1.55; color: #3A3732;">Before design, I studied and worked in marketing. I've designed two mobile apps on my own, and both started with a problem from my own life: getting from the airport to the city on a budget, and a fifth of our groceries ending up in the bin.</p>
 </div>
-<div style="grid-column: 1 / span 9; display: flex; flex-direction: column; gap: 28px; padding: 24px 0 0; border-top: 1px solid #D6D2CA;">
-<p style="margin: 0; max-width: 720px; font-size: 21px; line-height: 1.55; color: #2A2A2A;">Open to UX/UI roles at Cork studios, remote roles in the EU and freelance projects.</p>
+<div style="grid-column: 1 / span 9; display: flex; flex-direction: column; gap: 28px; padding: 24px 0 0; border-top: 1px solid #DDD9D0;">
+<p style="margin: 0; max-width: 720px; font-size: 21px; line-height: 1.55; color: #3A3732;">Open to UX/UI roles at Cork studios, remote roles in the EU and freelance projects.</p>
 <div style="display: flex; flex-wrap: wrap; gap: 12px;">
-<a href="#projects" style="display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 22px; background: #111111; color: #F5F3EF; font-size: 15px; font-weight: 500; text-decoration: none;">See the work <span aria-hidden="true">↓</span></a>
-<a href="#about-me" style="display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 22px; border: 1px solid #111111; color: #111111; font-size: 15px; font-weight: 500; text-decoration: none; box-sizing: border-box;">More about me <span aria-hidden="true">→</span></a>
+<a class="btn btn--fill" href="#projects">See the work <span class="arr arr--d" aria-hidden="true">↓</span></a>
+<a class="btn btn--outline" href="#about" data-about-open aria-controls="about" aria-expanded="false">More about me <span class="arr arr--r" aria-hidden="true">→</span></a>
+</div>
+</div>
+</div>
+</div>
+
+<div class="intro-panel about" id="about" role="region" aria-labelledby="about-title">
+<button type="button" class="back-btn" data-about-close><span class="arr arr--l" aria-hidden="true">←</span> Back</button>
+<div class="about-grid">
+<div class="about-text">
+<h2 id="about-title" tabindex="-1" style="margin: 0; font-size: clamp(24px, 2.4vw, 30px); line-height: 1.2; font-weight: 500; letter-spacing: -0.02em;">Hi, I'm Martha.</h2>
+<p>My way into design wasn't a straight line. I started in marketing: a degree in Ukraine, then a job as a marketing specialist. Somewhere along the way I realised I was more curious about how things work for people than how they're sold, so I switched to UX/UI.</p>
+<p>I learned the craft through Google's UX design courses, from the very first research and wireframes to testing ideas early and building high-fidelity prototypes in Figma. Then I went straight into practice. Both of my apps started with something from my own life. You'll find more about that in the <a class="inline-link" href="#projects" data-about-goto>case studies</a>.</p>
+<p>Outside of design, I'm very much into sport: I've been a CrossFit lover for almost three years now. In my free time I really enjoy reading. My favourite books are <em>Arch of Triumph</em> by Erich Maria Remarque, <em>Stoner</em> by John Williams and <em>The Secret History</em> by Donna Tartt. If you've read any of them, I'd love to hear what you thought.</p>
+<p>Travel has also been a big part of my life for the past four years, and I've visited 15 countries so far. I like to explore, ask questions, get to know people and get better at what I love.</p>
+<p class="about-cta"><a class="btn btn--outline" href="#contact" data-about-goto>Should we talk? <span class="arr arr--r" aria-hidden="true">→</span></a></p>
+</div>
+<div class="about-media">
+<video class="about-video" src="assets/about-martha.mp4" poster="assets/about-martha-poster.jpg" width="640" height="800" preload="metadata" autoplay muted loop playsinline aria-label="Short video of Martha on a windy beach"></video>
+</div>
+</div>
 </div>
 </div>
 </div>
 </section>
 
-<section id="projects" aria-labelledby="projects-label" style="padding: 0 0 clamp(64px, 9vw, 120px);">
-<p id="projects-label" style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">(01) Selected work</p>
+<section id="projects" tabindex="-1" aria-labelledby="projects-label" style="padding: 0 0 clamp(64px, 9vw, 120px);">
+<p id="projects-label" style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #67635C;">(01) Selected work</p>
 
-<div style="display: flex; flex-direction: column; border-bottom: 1px solid #111111;">
+<div style="display: flex; flex-direction: column; border-bottom: 1px solid #1B1915;">
 
-<a href="arrivee.html" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 24px; align-items: stretch; padding: 40px 0; border-top: 1px solid #111111; color: #111111; text-decoration: none;">
+<a class="project-row" href="arrivee.html" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 24px; align-items: stretch; padding: 40px 0; border-top: 1px solid #1B1915; color: #1B1915; text-decoration: none;">
 <div style="grid-column: span 5; display: flex; flex-direction: column; gap: 16px;">
-<p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">01 · Own app concept · Mobile · 2026</p>
+<p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #67635C;">01 · Own app concept · Mobile · 2026</p>
 <h3 style="margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-weight: 700; font-size: clamp(36px, 3.6vw, 52px); line-height: 1; letter-spacing: -0.03em;">Arrivée</h3>
-<p style="margin: 0; font-size: 19px; line-height: 1.5; color: #2A2A2A;">A mobile app for travellers whose plan already half-collapsed by the time they land.</p>
-<span style="margin-top: auto; align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 22px; border: 1px solid #111111; color: #111111; font-size: 15px; font-weight: 500; box-sizing: border-box;">Read case study <span aria-hidden="true">→</span></span>
+<p style="margin: 0; font-size: 19px; line-height: 1.5; color: #3A3732;">A mobile app for travellers whose plan already half-collapsed by the time they land.</p>
+<span class="btn btn--outline" style="margin-top: auto; align-self: flex-start;">Read case study <span class="arr arr--r" aria-hidden="true">→</span></span>
 </div>
-<img src="assets/arrivee-cover.jpg" alt="Arrivée cover: three app screens next to the line Every way out" style="grid-column: 7 / span 6; align-self: start; display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: #2F3A44;">
+<div class="cover" style="grid-column: 7 / span 6; align-self: start;"><img width="1600" height="1200" loading="lazy" decoding="async" src="assets/arrivee-cover.jpg" alt="Arrivée cover: three app screens next to the line Every way out" style="display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: #2F3A44;"></div>
 </a>
 
-<a href="mealcraft.html" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 24px; align-items: stretch; padding: 40px 0; border-top: 1px solid #111111; color: #111111; text-decoration: none;">
+<a class="project-row" href="mealcraft.html" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 24px; align-items: stretch; padding: 40px 0; border-top: 1px solid #1B1915; color: #1B1915; text-decoration: none;">
 <div style="grid-column: span 5; display: flex; flex-direction: column; gap: 16px;">
-<p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">02 · Retrospective redesign · Mobile · 2026</p>
+<p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #67635C;">02 · Retrospective redesign · Mobile · 2026</p>
 <h3 style="margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-weight: 700; font-size: clamp(36px, 3.6vw, 52px); line-height: 1; letter-spacing: -0.03em;">MealCraft</h3>
-<p style="margin: 0; font-size: 19px; line-height: 1.5; color: #2A2A2A;">A retrospective redesign of a meal planning app that knows what's already in your fridge.</p>
-<span style="margin-top: auto; align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 22px; border: 1px solid #111111; color: #111111; font-size: 15px; font-weight: 500; box-sizing: border-box;">Read case study <span aria-hidden="true">→</span></span>
+<p style="margin: 0; font-size: 19px; line-height: 1.5; color: #3A3732;">A retrospective redesign of a meal planning app that knows what's already in your fridge.</p>
+<span class="btn btn--outline" style="margin-top: auto; align-self: flex-start;">Read case study <span class="arr arr--r" aria-hidden="true">→</span></span>
 </div>
-<img src="assets/mealcraft-cover.jpg" alt="MealCraft: three redesigned app screens on a green background" style="grid-column: 7 / span 6; align-self: start; display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: #9DB8A2;">
+<div class="cover" style="grid-column: 7 / span 6; align-self: start;"><img width="2400" height="1650" loading="lazy" decoding="async" src="assets/mealcraft-cover.jpg" alt="MealCraft: three redesigned app screens on a green background" style="display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: #9DB8A2;"></div>
 </a>
 
 </div>
 </section>
 
-<section id="contact" aria-labelledby="contact-title" style="padding: clamp(48px, 6vw, 80px) 0 clamp(80px, 10vw, 136px);">
-<p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">(02) Contact</p>
+<section id="contact" tabindex="-1" aria-labelledby="contact-title" style="padding: clamp(48px, 6vw, 80px) 0 clamp(80px, 10vw, 136px);">
+<p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #67635C;">(02) Contact</p>
 <h2 id="contact-title" style="margin: 14px 0 0; font-family: 'Source Serif 4', Georgia, serif; font-weight: 700; font-size: clamp(48px, 6.4vw, 92px); line-height: 0.95; letter-spacing: -0.035em;">Let's work together</h2>
-<p style="margin: 24px 0 0; max-width: 720px; font-size: 21px; line-height: 1.55; color: #2A2A2A;">Open to UX/UI roles and freelance projects. Get in touch:</p>
-<div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; margin-top: clamp(40px, 5vw, 64px);">
-<div style="grid-column: 1 / span 9; display: flex; flex-direction: column; border-bottom: 1px solid #D6D2CA;">
-<a href="mailto:marharytadolha@gmail.com" style="display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; padding: 20px 0 22px; border-top: 1px solid #111111; color: #111111; text-decoration: none;">
+<p style="margin: 24px 0 0; max-width: 720px; font-size: 21px; line-height: 1.55; color: #3A3732;">Open to UX/UI roles and freelance projects. Get in touch:</p>
+<div class="contact-grid" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; margin-top: clamp(40px, 5vw, 64px);">
+<div class="contact-list" style="grid-column: 1 / span 6; display: flex; flex-direction: column; border-bottom: 1px solid #DDD9D0;">
+<div class="contact-row" style="display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; padding: 20px 0 22px; border-top: 1px solid #1B1915; color: #1B1915;">
 <span style="display: flex; flex-direction: column; gap: 8px; min-width: 0;">
-<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">Email</span>
-<span style="font-size: clamp(22px, 2.2vw, 28px); font-weight: 500; letter-spacing: -0.02em; overflow-wrap: anywhere;">marharytadolha@gmail.com</span>
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #67635C;">Email</span>
+<span class="contact-line">
+<a class="contact-value stretched" href="mailto:marharytadolha@gmail.com" style="font-size: clamp(22px, 2.2vw, 28px); font-weight: 500; letter-spacing: -0.02em; overflow-wrap: anywhere; color: #1B1915; text-decoration: none;">marharytadolha@gmail.com</a>
+<button type="button" class="copy-btn" data-copy="marharytadolha@gmail.com" aria-label="Copy email address"><span data-copy-label>Copy</span></button>
+<span class="sr-only" aria-live="polite" data-copy-status></span>
 </span>
-<span aria-hidden="true" style="font-size: 22px; line-height: 1;">↗</span>
-</a>
-<a href="https://www.linkedin.com/in/marharyta-dolha/" style="display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; padding: 20px 0 22px; border-top: 1px solid #D6D2CA; color: #111111; text-decoration: none;">
+</span>
+<span class="arr arr--ne" aria-hidden="true" style="font-size: 22px; line-height: 1;">↗</span>
+</div>
+<a class="contact-row" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/marharyta-dolha/" style="display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; padding: 20px 0 22px; border-top: 1px solid #DDD9D0; color: #1B1915; text-decoration: none;">
 <span style="display: flex; flex-direction: column; gap: 8px; min-width: 0;">
-<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">LinkedIn</span>
-<span style="font-size: clamp(22px, 2.2vw, 28px); font-weight: 500; letter-spacing: -0.02em; overflow-wrap: anywhere;">linkedin.com/in/marharyta-dolha</span>
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #67635C;">LinkedIn</span>
+<span class="contact-value" style="font-size: clamp(22px, 2.2vw, 28px); font-weight: 500; letter-spacing: -0.02em; overflow-wrap: anywhere;">linkedin.com/in/marharyta-dolha</span>
 </span>
-<span aria-hidden="true" style="font-size: 22px; line-height: 1;">↗</span>
+<span class="arr arr--ne" aria-hidden="true" style="font-size: 22px; line-height: 1;">↗</span>
 </a>
-<a href="https://wa.me/353830173933" style="display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; padding: 20px 0 22px; border-top: 1px solid #D6D2CA; color: #111111; text-decoration: none;">
+<a class="contact-row" target="_blank" rel="noopener noreferrer" href="https://wa.me/353830173933" style="display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; padding: 20px 0 22px; border-top: 1px solid #DDD9D0; color: #1B1915; text-decoration: none;">
 <span style="display: flex; flex-direction: column; gap: 8px; min-width: 0;">
-<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">WhatsApp</span>
-<span style="font-size: clamp(22px, 2.2vw, 28px); font-weight: 500; letter-spacing: -0.02em;">+353 83 017 3933</span>
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #67635C;">WhatsApp</span>
+<span class="contact-value" style="font-size: clamp(22px, 2.2vw, 28px); font-weight: 500; letter-spacing: -0.02em;">+353 83 017 3933</span>
 </span>
-<span aria-hidden="true" style="font-size: 22px; line-height: 1;">↗</span>
+<span class="arr arr--ne" aria-hidden="true" style="font-size: 22px; line-height: 1;">↗</span>
 </a>
+</div>
+<div class="contact-form-wrap">
+<form class="contact-form" data-contact-form novalidate>
+<input type="hidden" name="_subject" value="New message from marthamakes.com">
+<div class="field">
+<label for="cf-name">Name</label>
+<input id="cf-name" name="name" type="text" autocomplete="name" required aria-describedby="cf-name-error">
+<p class="field-error" id="cf-name-error" hidden></p>
+</div>
+<div class="field">
+<label for="cf-email">Email</label>
+<input id="cf-email" name="email" type="email" autocomplete="email" required aria-describedby="cf-email-error">
+<p class="field-error" id="cf-email-error" hidden></p>
+</div>
+<div class="field">
+<label for="cf-message">Message</label>
+<textarea id="cf-message" name="message" rows="5" required aria-describedby="cf-message-error"></textarea>
+<p class="field-error" id="cf-message-error" hidden></p>
+</div>
+<div class="hp" aria-hidden="true"><label for="cf-website">Leave this field empty</label><input id="cf-website" name="_gotcha" type="text" tabindex="-1" autocomplete="off"></div>
+<p class="form-error" data-form-error role="alert" hidden>Something went wrong. Please email me at <a href="mailto:marharytadolha@gmail.com">marharytadolha@gmail.com</a></p>
+<button type="submit" class="btn btn--fill" data-submit>Send message</button>
+</form>
+<p class="form-success" data-form-success tabindex="-1" hidden>Thanks! Your message is on its way.</p>
 </div>
 </div>
 </section>
 
-<footer style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 24px; padding: 16px 0 32px; border-top: 1px solid #111111;">
-<p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5E5E;">© 2026 Marharyta Dolha</p>
+</main>
+
+<footer class="site-footer" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 24px; padding: 16px 0 32px; border-top: 1px solid #1B1915;">
+<p style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #67635C;">© 2026 Marharyta Dolha</p>
 <div style="display: flex; flex-wrap: wrap; gap: 0 24px; font-size: 15px; font-weight: 500;">
-<a href="mailto:marharytadolha@gmail.com" style="display: inline-flex; align-items: center; min-height: 44px; color: #111111; text-decoration: none;">Email</a>
-<a href="https://www.linkedin.com/in/marharyta-dolha/" style="display: inline-flex; align-items: center; min-height: 44px; color: #111111; text-decoration: none;">LinkedIn</a>
-<a href="https://wa.me/353830173933" style="display: inline-flex; align-items: center; min-height: 44px; color: #111111; text-decoration: none;">WhatsApp</a>
-<a href="#top" style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: #111111; text-decoration: none;">Back to top <span aria-hidden="true">↑</span></a>
+<a class="tlink" href="mailto:marharytadolha@gmail.com" style="display: inline-flex; align-items: center; min-height: 44px; color: #1B1915; text-decoration: none;">Email</a>
+<a target="_blank" rel="noopener noreferrer" class="tlink" href="https://www.linkedin.com/in/marharyta-dolha/" style="display: inline-flex; align-items: center; min-height: 44px; color: #1B1915; text-decoration: none;">LinkedIn</a>
+<a target="_blank" rel="noopener noreferrer" class="tlink" href="https://wa.me/353830173933" style="display: inline-flex; align-items: center; min-height: 44px; color: #1B1915; text-decoration: none;">WhatsApp</a>
+<a class="tlink" href="#top" style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: #1B1915; text-decoration: none;">Back to top <span class="arr arr--u" aria-hidden="true">↑</span></a>
 </div>
 </footer>
 
