@@ -1,17 +1,19 @@
 # Marharyta Dolha — portfolio site
 
-A plain static site: three HTML pages, one stylesheet, one small JavaScript file and the images and videos. There's no build step, no framework and no dependencies. It's hosted on Vercel at https://marthamakes.com.
+A plain static site: three HTML pages plus a 404 page, one stylesheet, one small JavaScript file and the images and videos. There's no build step, no framework and no dependencies. It's hosted on Vercel at https://marthamakes.com.
 
 ```
 index.html          Home (intro + "More about me" panel, projects, contact list)
 arrivee.html        Arrivée case study
 mealcraft.html      MealCraft case study
+404.html            "Page not found", shown by Vercel at any missing address (links start with /)
 css/site.css        Hover/focus states, motion, About panel, phone/tablet layout
 js/site.js          Clock, carousels, tabs, videos, About panel, fade-ins, copy email
 assets/             Images and videos
 assets/og/          Link preview images (1200×630) for LinkedIn, WhatsApp, etc.
 favicon.*, icon-*, apple-touch-icon.png, site.webmanifest   Browser and app icons (mm. logo)
 vercel.json         Clean URLs: marthamakes.com/arrivee and /mealcraft
+sitemap.xml, robots.txt   For Google Search Console: the three pages to index
 ```
 
 This code is now the master copy: the design canvas isn't re-exported any more.
