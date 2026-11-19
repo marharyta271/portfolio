@@ -164,15 +164,18 @@ html:not(.js) .back-btn { display: none; }
   font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase;
   transition: transform .12s ease;
 }
+/* horizontal video on top, text below at exactly the video's width
+   (9 of 12 columns, the same width as the intro blocks) */
 .about-grid {
-  display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px;
+  display: flex; flex-direction: column; gap: 32px;
+  width: calc((100% - 11 * 24px) * 9 / 12 + 8 * 24px); max-width: 100%;
   margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--ink);
 }
-.about-text { grid-column: 1 / span 7; display: flex; flex-direction: column; gap: 20px; }
+.about-media { order: -1; width: 100%; }
+.about-text { display: flex; flex-direction: column; gap: 20px; }
 .about-text p { margin: 0; font-size: 21px; line-height: 1.55; color: var(--body); }
 .about-text .about-cta { margin-top: 12px; }
-.about-media { grid-column: 9 / span 4; }
-.about-video { display: block; width: 100%; height: auto; background: #E9E7DF; }
+.about-video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; background: #E9E7DF; }
 
 /* ---------------------------------------------------------------------------
    Home: contact list + form
@@ -245,8 +248,6 @@ html:not(.js) .contact-form-wrap { display: none; }
   .g-persona > *, .finding > * { grid-column: 1 / -1 !important; grid-row: auto !important; }
   .finding > [style*="padding-top: 22px"] { padding-top: 0 !important; }
 
-  .about-text { grid-column: 1 / span 7; }
-  .about-media { grid-column: 9 / span 4; }
 }
 
 /* ===========================================================================
@@ -270,8 +271,7 @@ html:not(.js) .contact-form-wrap { display: none; }
 
   /* Home */
   .project-row .cover { order: -1; }
-  .about-grid { display: flex; flex-direction: column; gap: 32px; }
-  .about-media { order: -1; width: 100%; }
+  .about-grid { width: 100%; gap: 28px; }
   .contact-form-wrap { grid-column: 1 / -1; margin-top: 56px; }
 
   /* MealCraft competitors: one phone at a time, max 300px, centred */
