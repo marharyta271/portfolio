@@ -1,7 +1,7 @@
 /* Marharyta Dolha — shared styles
    Most of the look still lives in inline styles (exported from the design canvas).
    This file adds what inline styles can't do: hover/focus/pressed states, motion,
-   the About panel, the contact form and the phone/tablet layout.
+   the About panel and the phone/tablet layout.
    Inline styles beat stylesheet rules, so responsive overrides use !important.
 
    Breakpoints: ≤1100px small laptop/tablet, ≤760px phone, ≤420px small phone. */
@@ -91,6 +91,30 @@ img { height: auto; }
 .tab:hover, .tab[aria-selected="true"] { color: var(--ink) !important; }
 .tab[aria-selected="true"] { border-bottom-color: var(--ink) !important; }
 
+/* MealCraft tab panels: old screens fade out, new ones fade up while the box
+   eases to their height (classes set by js/site.js) */
+.tabpanels { display: flow-root; box-sizing: content-box; }
+.tabpanels.is-switching {
+  overflow: hidden; transition: height .4s cubic-bezier(.22, .61, .36, 1);
+  padding: 0 20px 48px; margin: 0 -20px -48px; /* room for the screens' soft shadows */
+}
+[data-panel] { transition: opacity .4s ease, transform .45s cubic-bezier(.22, .61, .36, 1); }
+[data-panel].is-leaving { opacity: 0; transition-duration: .18s; }
+[data-panel].is-entering { opacity: 0; transform: translateY(14px); transition: none; }
+
+/* MealCraft competitor carousels: screens side by side in a snapping strip,
+   one in view; swipe, trackpad, arrows and ←/→ all glide between them */
+.comp-strip {
+  display: flex; gap: 16px;
+  overflow-x: auto; overflow-y: hidden;
+  scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
+  scrollbar-width: none; -webkit-overflow-scrolling: touch;
+}
+.comp-strip::-webkit-scrollbar { display: none; }
+.comp-strip > * { flex: 0 0 100%; min-width: 0; scroll-snap-align: start; scroll-snap-stop: always; }
+.fade-in { animation: fade-in .35s ease both; }
+@keyframes fade-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
 /* pressed */
 .btn:active, .icon-btn:not([aria-disabled="true"]):active, .tab:active,
 .copy-btn:active, .back-btn:active { transform: scale(.97); }
@@ -178,34 +202,9 @@ html:not(.js) .back-btn { display: none; }
 .about-video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; background: #E9E7DF; }
 
 /* ---------------------------------------------------------------------------
-   Home: contact list + form
+   Home: contact list
    --------------------------------------------------------------------------- */
 .contact-list { align-self: start; }
-.contact-form-wrap { grid-column: 8 / span 5; }
-.contact-form { display: flex; flex-direction: column; gap: 20px; padding-top: 20px; border-top: 1px solid var(--ink); }
-.field { display: flex; flex-direction: column; gap: 8px; }
-.field label { font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--label); }
-.field input, .field textarea {
-  width: 100%; box-sizing: border-box; margin: 0; padding: 12px 14px;
-  border: 1px solid var(--label-2); border-radius: 0; background: #FFFFFF; color: var(--ink);
-  font: 400 18px/1.45 Inter, system-ui, -apple-system, 'Segoe UI', sans-serif;
-  transition: border-color .2s ease;
-}
-.field textarea { min-height: 150px; resize: vertical; }
-.field input:hover, .field textarea:hover { border-color: var(--ink); }
-.field input:focus-visible, .field textarea:focus-visible { border-color: var(--ink); outline-offset: 0; }
-.field [aria-invalid="true"] { border-color: var(--warn); border-width: 2px; padding: 11px 13px; }
-.field-error { margin: 0; font-size: 16px; line-height: 1.4; color: var(--warn); }
-.field-error::before { content: "Error: "; font-weight: 600; }
-.form-error { margin: 0; padding: 14px 16px; border: 1px solid var(--warn); font-size: 17px; line-height: 1.5; color: var(--ink); }
-.form-error a { color: var(--ink); text-underline-offset: 3px; overflow-wrap: anywhere; }
-.contact-form .btn { align-self: flex-start; margin-top: 4px; }
-.form-success {
-  margin: 0; padding: 24px 0 0; border-top: 1px solid var(--ink);
-  font-size: clamp(24px, 2.4vw, 30px); line-height: 1.2; font-weight: 500; letter-spacing: -0.02em;
-}
-.hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
-html:not(.js) .contact-form-wrap { display: none; }
 
 /* ---------------------------------------------------------------------------
    Motion: reveal on scroll, smooth scrolling, page cross-fade
@@ -272,7 +271,6 @@ html:not(.js) .contact-form-wrap { display: none; }
   /* Home */
   .project-row .cover { order: -1; }
   .about-grid { width: 100%; gap: 28px; }
-  .contact-form-wrap { grid-column: 1 / -1; margin-top: 56px; }
 
   /* MealCraft competitors: one phone at a time, max 300px, centred */
   .comp { width: 100%; max-width: 300px; margin-inline: auto; }

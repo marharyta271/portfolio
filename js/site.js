@@ -1,23 +1,13 @@
-/* ==========================================================================
-   CONTACT FORM ENDPOINT  ← paste the Formspree URL here
-   1. Create a form at https://formspree.io (target email: marharytadolha@gmail.com)
-   2. Copy its endpoint, it looks like https://formspree.io/f/abcdwxyz
-   3. Replace the value below, save, commit and redeploy.
-   Until then the form shows its error message (with the email address).
-   ========================================================================== */
-var FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
-
-
 /* Marharyta Dolha — portfolio
    Small, dependency-free behaviour for the static pages:
    1. "IE · 14:32" clock in the header (Cork / Dublin time)
    2. Swipe carousels with dots and auto-advance (MealCraft settings screenshots)
-   3. Click-through competitor carousels (MealCraft)
-   4. Tabs for the redesigned screens (MealCraft)
+   3. Competitor carousels (MealCraft)
+   4. Tabs for the redesigned screens, with a soft cross-fade (MealCraft)
    5. Videos only play while they are on screen (saves battery and data)
    6. "More about me" panel on Home
    7. Gentle fade-up of sections as they scroll into view
-   8. Copy-email button and the contact form
+   8. Copy-email button
 */
 (function () {
   'use strict';
@@ -114,53 +104,127 @@ var FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
     render();
   });
 
-  /* 3. Click-through carousels (one screen visible at a time) */
-  var groups = {};
-  document.querySelectorAll('[data-comp]').forEach(function (el) {
-    var k = el.getAttribute('data-comp');
-    (groups[k] = groups[k] || []).push(el);
-  });
-  Object.keys(groups).forEach(function (k) {
-    var els = groups[k];
-    var count = 0;
-    els.forEach(function (e) { count = Math.max(count, +e.getAttribute('data-i') + 1); });
-    var cur = 0;
+  /* Load the images inside `box` a little before it scrolls into view,
+     so hidden tabs and the next carousel screen are ready when shown. */
+  function preload(box) {
+    var imgs = box.querySelectorAll('img[loading="lazy"]');
+    if (!imgs.length) return;
+    var load = function () { imgs.forEach(function (img) { img.loading = 'eager'; }); };
+    if (!('IntersectionObserver' in window)) { load(); return; }
+    var io = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) { io.disconnect(); load(); }
+    }, { rootMargin: '800px 0px' });
+    io.observe(box);
+  }
+
+  /* 3. Competitor carousels: the screens sit side by side in a scroll-snap strip,
+        so swipes and trackpads move them natively; the arrows and ←/→ glide to
+        the next one. The caption below fades in for the screen on show. */
+  document.querySelectorAll('[data-comp-strip]').forEach(function (strip) {
+    var k = strip.getAttribute('data-comp-strip');
+    var count = strip.children.length;
+    var caps = Array.prototype.filter.call(document.querySelectorAll('[data-comp="' + k + '"]'), function (el) {
+      return !strip.contains(el);
+    });
     var counter = document.querySelector('[data-comp-counter="' + k + '"]');
     var prev = document.querySelector('[data-comp-prev="' + k + '"]');
     var next = document.querySelector('[data-comp-next="' + k + '"]');
-    function render() {
-      els.forEach(function (e) {
-        var on = +e.getAttribute('data-i') === cur;
-        e.style.display = on ? 'block' : 'none';
-        if (e.tagName === 'VIDEO') {
-          if (on && !rm()) { var p = e.play && e.play(); if (p && p.catch) p.catch(function () {}); }
-          else if (!on && e.pause) { e.pause(); }
-        }
+    var cur = -1;
+    var settle;
+
+    function step() {
+      var gap = parseFloat(getComputedStyle(strip).columnGap) || 0;
+      return strip.clientWidth + gap;
+    }
+    function show(i, animate) {
+      if (i === cur) return;
+      cur = i;
+      caps.forEach(function (c) {
+        var on = +c.getAttribute('data-i') === i;
+        c.style.display = on ? 'block' : 'none';
+        c.classList.remove('fade-in');
+        if (on && animate) { void c.offsetWidth; c.classList.add('fade-in'); }
       });
-      if (counter) counter.textContent = (cur + 1) + ' / ' + count;
-      setDisabled(prev, cur === 0);
-      setDisabled(next, cur === count - 1);
+      Array.prototype.forEach.call(strip.querySelectorAll('video'), function (v) {
+        if (+v.getAttribute('data-i') !== i && v.pause) v.pause();
+      });
+      if (counter) counter.textContent = (i + 1) + ' / ' + count;
+      setDisabled(prev, i === 0);
+      setDisabled(next, i === count - 1);
     }
-    function move(d) {
-      var n = Math.max(0, Math.min(count - 1, cur + d));
-      if (n !== cur) { cur = n; render(); }
+    function goTo(i) {
+      i = Math.max(0, Math.min(count - 1, i));
+      strip.scrollTo({ left: i * step(), behavior: rm() ? 'auto' : 'smooth' });
+      show(i, true);
     }
-    if (prev) prev.addEventListener('click', function () { move(-1); });
-    if (next) next.addEventListener('click', function () { move(1); });
-    var group = prev && prev.closest('[role="group"]');
+    // update once the strip comes to rest (a swipe, a trackpad flick or an arrow)
+    strip.addEventListener('scroll', function () {
+      clearTimeout(settle);
+      settle = setTimeout(function () {
+        show(Math.max(0, Math.min(count - 1, Math.round(strip.scrollLeft / step()))), true);
+      }, 120);
+    }, { passive: true });
+    if (prev) prev.addEventListener('click', function () { goTo(cur - 1); });
+    if (next) next.addEventListener('click', function () { goTo(cur + 1); });
+    var group = strip.closest('[role="group"]');
     if (group) {
       group.addEventListener('keydown', function (e) {
         if (!isArrow(e)) return;
         e.preventDefault();
-        move(e.key === 'ArrowRight' ? 1 : -1);
+        goTo(cur + (e.key === 'ArrowRight' ? 1 : -1));
       });
     }
-    render();
+    // keep the current screen in place when the window is resized
+    window.addEventListener('resize', function () { strip.scrollLeft = cur * step(); });
+    preload(strip);
+    show(0, false);
   });
 
-  /* 4. Tabs (colours come from css/site.css via aria-selected) */
+  /* 4. Tabs (colours come from css/site.css via aria-selected).
+        Switching fades the old screens out, then the new ones fade up
+        while the box eases to their height, so the page below doesn't jump. */
   var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"][data-tab]'));
-  function pick(k, focus) {
+  var panels = Array.prototype.slice.call(document.querySelectorAll('[data-panel]'));
+  var panelBox = document.querySelector('.tabpanels');
+  var shown = null;
+  var tabTimers = [];
+  function panelHeight(p) { return p.offsetHeight + (parseFloat(getComputedStyle(p).marginTop) || 0); }
+  function showPanel(k, animate) {
+    var from = shown && document.querySelector('[data-panel="' + shown + '"]');
+    var to = document.querySelector('[data-panel="' + k + '"]');
+    if (!to || from === to) return;
+    shown = k;
+    tabTimers.forEach(clearTimeout);
+    tabTimers = [];
+    var reset = function () {
+      panels.forEach(function (p) {
+        p.style.display = p === to ? 'grid' : 'none';
+        p.classList.remove('is-leaving', 'is-entering');
+      });
+      if (panelBox) { panelBox.classList.remove('is-switching'); panelBox.style.height = ''; }
+    };
+    if (!animate || rm() || !panelBox || !from) { reset(); return; }
+
+    panelBox.style.height = panelBox.offsetHeight + 'px';
+    panelBox.classList.add('is-switching');
+    panels.forEach(function (p) {
+      if (p !== from) { p.style.display = 'none'; p.classList.remove('is-entering'); }
+    });
+    from.style.display = 'grid';
+    from.classList.add('is-leaving');
+    tabTimers.push(setTimeout(function () {
+      from.style.display = 'none';
+      from.classList.remove('is-leaving');
+      to.classList.add('is-entering');
+      to.style.display = 'grid';
+      var h = panelHeight(to);
+      void to.offsetWidth;
+      panelBox.style.height = h + 'px';
+      to.classList.remove('is-entering');
+      tabTimers.push(setTimeout(reset, 450));
+    }, 180));
+  }
+  function pick(k, focus, animate) {
     tabs.forEach(function (t) {
       var on = t.getAttribute('data-tab') === k;
       t.setAttribute('aria-selected', on ? 'true' : 'false');
@@ -170,20 +234,19 @@ var FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
         if (t.scrollIntoView) t.scrollIntoView({ block: 'nearest', inline: 'nearest' });
       }
     });
-    document.querySelectorAll('[data-panel]').forEach(function (p) {
-      p.style.display = p.getAttribute('data-panel') === k ? 'grid' : 'none';
-    });
+    showPanel(k, animate);
   }
   tabs.forEach(function (t, i) {
-    t.addEventListener('click', function () { pick(t.getAttribute('data-tab')); });
+    t.addEventListener('click', function () { pick(t.getAttribute('data-tab'), false, true); });
     t.addEventListener('keydown', function (e) {
       if (!isArrow(e)) return;
       e.preventDefault();
       var n = tabs[(i + (e.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length];
-      pick(n.getAttribute('data-tab'), true);
+      pick(n.getAttribute('data-tab'), true, true);
     });
   });
-  if (tabs.length) pick(tabs[0].getAttribute('data-tab'));
+  if (tabs.length) pick(tabs[0].getAttribute('data-tab'), false, false);
+  if (panelBox) preload(panelBox);
 
   /* 5. Play videos only while visible; no autoplay with "reduce motion" */
   if (rm()) {
@@ -330,7 +393,7 @@ var FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
     });
   }
 
-  /* 8a. Copy the email address */
+  /* 8. Copy the email address */
   function copyText(text) {
     if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
     return new Promise(function (resolve, reject) {
@@ -365,67 +428,4 @@ var FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
       });
     });
   });
-
-  /* 8b. Contact form → Formspree */
-  var form = document.querySelector('[data-contact-form]');
-  if (form) {
-    var submit = form.querySelector('[data-submit]');
-    var formError = form.querySelector('[data-form-error]');
-    var success = document.querySelector('[data-form-success]');
-    var checks = {
-      name: function (v) { return v ? '' : 'Please enter your name.'; },
-      email: function (v, el) {
-        if (!v) return 'Please enter your email address.';
-        return el.validity && el.validity.typeMismatch ? 'Please enter a valid email address, like name@example.com.' : '';
-      },
-      message: function (v) { return v ? '' : 'Please write a message.'; }
-    };
-    var showError = function (el, msg) {
-      var box = document.getElementById(el.id + '-error');
-      el.setAttribute('aria-invalid', msg ? 'true' : 'false');
-      box.textContent = msg;
-      box.hidden = !msg;
-    };
-    var validate = function (el) {
-      var msg = checks[el.name](el.value.trim(), el);
-      showError(el, msg);
-      return !msg;
-    };
-    var fields = Object.keys(checks).map(function (n) { return form.elements[n]; });
-    fields.forEach(function (el) {
-      el.addEventListener('input', function () { if (el.getAttribute('aria-invalid') === 'true') validate(el); });
-      el.addEventListener('blur', function () { if (el.value.trim()) validate(el); });
-    });
-
-    var setSending = function (on) {
-      submit.disabled = on;
-      submit.textContent = on ? 'Sending…' : 'Send message';
-    };
-    var done = function () {
-      form.hidden = true;
-      success.hidden = false;
-      success.focus();
-    };
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var firstBad = null;
-      fields.forEach(function (el) { if (!validate(el) && !firstBad) firstBad = el; });
-      if (firstBad) { firstBad.focus(); return; }
-      formError.hidden = true;
-      if (form.elements._gotcha && form.elements._gotcha.value) { done(); return; } // bot
-      setSending(true);
-      fetch(FORMSPREE_ENDPOINT, {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { Accept: 'application/json' }
-      }).then(function (res) {
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        done();
-      }).catch(function () {
-        setSending(false);
-        formError.hidden = false;
-      });
-    });
-  }
 })();
